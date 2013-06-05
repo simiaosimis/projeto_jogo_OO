@@ -147,24 +147,36 @@ public class Game extends Canvas implements Runnable{
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_RIGHT){
-			p.setX(p.getX()+10);
+			p.setDireita(true);
 		}
 		else if(key == KeyEvent.VK_LEFT){
-			p.setX(p.getX()-10);
+			p.setEsquerda(true);
 		}
 		if(key == KeyEvent.VK_SPACE){
+			System.out.println("APERTOU a tecla espaço");
 			p.setSaltar(true);
 		}
 		if(key == KeyEvent.VK_UP){
 			inimigo.atirar();
 		}
 		if(key == KeyEvent.VK_DOWN){
-			p.atirar();
+			p.setAtirar(true);
+			p.setXtiro(p.getX());
+			p.setYtiro(p.getY());
 		}
 	}
 	
 	public void keyReleased(KeyEvent e){
-		
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_SPACE){
+			System.out.println("Soltou a tecla espaço");
+		}
+		if(key == KeyEvent.VK_RIGHT){
+			p.setDireita(false);
+		}
+		else if(key == KeyEvent.VK_LEFT){
+			p.setEsquerda(false);
+		}
 	}
 	
 	public static void main(String[] args) {

@@ -1,6 +1,8 @@
 package jogo;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Player extends Pessoa {
@@ -11,11 +13,13 @@ public class Player extends Pessoa {
 	private boolean chao=false;
 	private boolean saltar=false;
 	private Game game;
+	private int xtiro;
+	private int ytiro;
 	
 	private BufferedImage player;
 	
 	public Player(int x, int y, int altura, int largura, Game game){
-		super(x, y, altura, largura);
+		super(x, y, altura, largura,false,false,false);
 		this.game=game;
 		
 		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
@@ -26,6 +30,11 @@ public class Player extends Pessoa {
 	public void tick(){
 		if(!plataforma && !chao)
 			game.aplicarGravidade(this, 0);
+		
+		if(esquerda)
+			x-=7;
+		if(direita)
+			x+=7;
 		
 		if(x>=590)x=590;
 		if(x<=0)x=0;
@@ -48,15 +57,22 @@ public class Player extends Pessoa {
 			game.aplicarGravidade(this,-1);
 			game.setI(1);
 			this.saltar=false;
+			}
 		}
-	}
+	
 
 	public void render(Graphics g){
 		g.drawImage(player, (int)x, (int)y, null);
+		if(atirar){
+			atirar(xtiro-=3,ytiro);
+		}
 	}
 	
-	public void atirar(){
-		System.out.println("O player atirou!");
+	public void atirar(int x, int y){
+		BufferStrategy bs = game.getBufferStrategy();
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.RED);
+		g.fillRect(x,y,30,30);
 	}
 
 	public boolean getSaltar() {
@@ -98,6 +114,22 @@ public class Player extends Pessoa {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public int getXtiro() {
+		return xtiro;
+	}
+
+	public void setXtiro(int xtiro) {
+		this.xtiro = xtiro;
+	}
+
+	public int getYtiro() {
+		return ytiro;
+	}
+
+	public void setYtiro(int ytiro) {
+		this.ytiro = ytiro;
 	}
 	
 

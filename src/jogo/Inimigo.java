@@ -8,7 +8,7 @@ public class Inimigo extends Pessoa{
 	public Fase fase;
 	
 	public Inimigo(String nome, int movimento, int ataque, int altura, int largura, int x, int y, boolean tiro) {
-		super(x,y,altura,largura);
+		super(x,y,altura,largura,false,false,false);
 		this.nome = nome;
 		this.movimento = movimento;
 		this.tiro=tiro;
