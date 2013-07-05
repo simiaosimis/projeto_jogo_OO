@@ -2,8 +2,8 @@ package jogo;
 
 public class Pessoa {
 	
-	protected int x;
-	protected int y;
+	protected float x;
+	protected float y;
 	protected int altura;
 	protected int largura;
 	protected boolean atirar;
@@ -44,19 +44,19 @@ public class Pessoa {
 		this.direita = direita;
 	}
 
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 
