@@ -1,36 +1,65 @@
 package jogo;
-import java.net.MalformedURLException;  
-import java.io.File;  
+import java.io.File;
 import java.io.IOException;
-import java.applet.*;  
-  
-public class Audio {  
-      
-    private AudioClip   somMorreu; //quando morre  
-    private AudioClip   somPassou; //quando passa de fase  
-    private AudioClip   somVida;   //quando ganha vida  
-    private AudioClip   somFim;    //quando acaba o jogo  
-  
-    public Audio() {  
-          
-    //Arquivos de som  
-      
-        try {  
-            somMorreu   = Applet.newAudioClip(new File("/asdfsdfsdfsdfmusic/Tchaykowsky-Concert_no.1_For_Piano.mid").toURL()); 
-        }  
-        catch (IOException e) {  
-              
-            System.out.println("Erro. Verifique o diretorio de sons");  
-        }  
-    }  
-      
-    public void tocarMorreu() {  
-        try{
-        somMorreu.play();  				
-        System.out.println("Deu certo");	
-        }					
-        catch(Exception e){
-        	 System.out.println("Erro. Verifique o diretorio de sons");  
-        }
-    }  
-}  
+import java.net.MalformedURLException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+public class Audio {
+	 private Clip clip;
+	 private String fileName;
+	    public Audio(){
+	    	
+	    }
+	    
+	    public void tocarMusica(){
+	        try {
+	            File file = new File(fileName);
+	            if (file.exists()) {
+	                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+	                clip = AudioSystem.getClip();
+	                clip.open(sound);
+	                clip.setFramePosition(0);
+	                clip.start();
+	                while (!clip.isRunning())
+	                    Thread.sleep(10);
+	                while (clip.isRunning())
+	                    Thread.sleep(10);
+	                clip.close();
+	            }
+	            else {
+	                throw new RuntimeException("Sound: arquivo não encontrado: " + fileName);
+	            }
+	        }
+	        catch (MalformedURLException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException("Sound: problemas na URL: " + e);
+	        }
+	        catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException("Sound: arquivo de áudio não suportado: " + e);
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException("Sound: erro de entrada e saída: " + e);
+	        }
+	        catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException("Sound: Line Unavailable Exception Error: " + e);
+	        } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+
+		public String getFileName() {
+			return fileName;
+		}
+
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
+	    
+}

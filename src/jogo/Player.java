@@ -1,12 +1,11 @@
 package jogo;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Player extends Pessoa {
+public class Player extends Renderizavel{
 	
 
 	private Plataforma[] plat;
@@ -20,6 +19,8 @@ public class Player extends Pessoa {
 	private boolean permiteTiro=true;
 	private int i=0;
 	private BufferedImage player;
+	private int direcao=1;
+	private boolean morreu=false;
 	
 	public Player(int x, int y, int altura, int largura, Game game){
 		super(x, y, altura, largura,false,false,false);
@@ -43,7 +44,7 @@ public class Player extends Pessoa {
 		if(x<=0)x=0;
 		
 		for(int i = 0; i<plat.length-1; i++)
-		if((x+largura)>plat[i].getX() && x<(plat[i].getX()+plat[i].getLargura()) && (y+altura)>=plat[i].getY() && (y+altura)<=(plat[i].getY()+7)){
+		if((x+largura)>plat[i].getX() && x<(plat[i].getX()+plat[i].getLargura()) && (y+altura)>=plat[i].getY() && (y+altura)<=(plat[i].getY()+7) && game.getVelocidade()>0){
 			//System.out.println("Aqui tem uma plataforma!");
 			plataforma=true;
 			break;
@@ -70,7 +71,7 @@ public class Player extends Pessoa {
 			}
 		}
 	
-
+	Audio audio = new Audio();
 	public void render(Graphics g){
 		
 		g.drawImage(player, (int)x, (int)y, null);
@@ -78,7 +79,10 @@ public class Player extends Pessoa {
 			permiteTiro = false;
 		}
 		if(atirar)
-			atirar(xtiro-=3,ytiro);
+			if(direcao==0)
+				atirar(xtiro+=3,ytiro);
+			else if(direcao==1)
+				atirar(xtiro-=3,ytiro);
 		if(xtiro<0)
 			atirar = false;
 	}
@@ -91,11 +95,14 @@ public class Player extends Pessoa {
 		return new Rectangle((int)xtiro,(int)ytiro,30,30);
 	}
 	
+	public void somDeTiro(){
+		audio.setFileName("C:/Users/Jota/Desktop/som de tiro.wav");
+		audio.tocarMusica();
+	}
 	public void atirar(float x, float y){
 		BufferStrategy bs = game.getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.RED);
-		g.fillRect((int)x,(int)y,30,30);
+		g.drawImage(game.getTiroImage(), (int)x, (int)y+20, 20, 20, game);
 	}
 
 	public boolean getSaltar() {
@@ -108,6 +115,14 @@ public class Player extends Pessoa {
 
 	public Plataforma[] getPlat() {
 		return plat;
+	}
+
+	public boolean isPlataforma() {
+		return plataforma;
+	}
+
+	public void setPlataforma(boolean plataforma) {
+		this.plataforma = plataforma;
 	}
 
 	public void setPlat(Plataforma plat[]) {
@@ -163,4 +178,21 @@ public class Player extends Pessoa {
 		this.permiteTiro = permiteTiro;
 	}
 
+	public int getDirecao() {
+		return direcao;
+	}
+
+	public void setDirecao(int direcao) {
+		this.direcao = direcao;
+	}
+
+	public boolean isMorreu() {
+		return morreu;
+	}
+
+	public void setMorreu(boolean morreu) {
+		this.morreu = morreu;
+	}
+
+	
 }
