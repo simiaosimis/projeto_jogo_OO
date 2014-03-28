@@ -1,13 +1,11 @@
 package jogo;
 
-
-
 public class Plataforma {
 
 	private int x;
 	private int y;
 	private int largura;
-	
+
 	public Plataforma(int x, int y, int largura) {
 		this.x = x;
 		this.y = y;
@@ -37,5 +35,5 @@ public class Plataforma {
 	public void setLargura(int largura) {
 		this.largura = largura;
 	}
-	
+
 }
