@@ -4,12 +4,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class Mouse implements MouseListener, MouseMotionListener{
-	
-	private static int mouseX =-1;
-	private static int mouseY =-1;
+public class Mouse implements MouseListener, MouseMotionListener {
 
-	
+	private static int mouseX = -1;
+	private static int mouseY = -1;
+
 	public static int getX() {
 		return mouseX;
 	}
@@ -25,16 +24,16 @@ public class Mouse implements MouseListener, MouseMotionListener{
 	public static void setMouseY(int mouseY) {
 		Mouse.mouseY = mouseY;
 	}
-	
+
 	public void mouseDragged(MouseEvent e) {
 	}
 
 	public void mouseMoved(MouseEvent e) {
 
 	}
-	
+
 	public void mouseClicked(MouseEvent e) {
-		
+
 	}
 
 	public void mouseEntered(MouseEvent e) {
