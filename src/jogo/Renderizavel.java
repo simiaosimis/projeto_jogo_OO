@@ -8,24 +8,23 @@ public class Renderizavel {
 	protected boolean atirar;
 	protected boolean esquerda;
 	protected boolean direita;
-	
-	
-	public Renderizavel(){}
-	
+
+	public Renderizavel() {
+	}
+
 	public Renderizavel(int x, int y, int altura, int largura, boolean atirar, boolean esquerda, boolean direita) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.altura = altura;
 		this.largura = largura;
-		this.atirar=atirar;
-		this.esquerda=esquerda;
-		this.direita=direita;
+		this.atirar = atirar;
+		this.esquerda = esquerda;
+		this.direita = direita;
 	}
-	
-	public void atirar(){}
-	
-	
+
+	public void atirar() {
+	}
 
 	public boolean isEsquerda() {
 		return esquerda;
@@ -82,6 +81,5 @@ public class Renderizavel {
 	public void setAtirar(boolean atirar) {
 		this.atirar = atirar;
 	}
-	
-	
+
 }
