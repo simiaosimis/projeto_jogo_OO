@@ -10,22 +10,22 @@ public class Fase {
 	public Player player;
 	public Cenario cenario;
 
-	
-	public Fase(){
+	public Fase() {
 		this.altura = 0;
 		this.largura = 0;
 		this.completo = false;
 		this.qtd_plataforma = 0;
 	}
-	
-	public Fase(int altura,int largura,boolean completo,int qtd_plataforma, Inimigo[] inimigo, Player player, Cenario cenario){
+
+	public Fase(int altura, int largura, boolean completo, int qtd_plataforma, Inimigo[] inimigo, Player player,
+			Cenario cenario) {
 		this.altura = altura;
 		this.largura = largura;
 		this.completo = completo;
 		this.qtd_plataforma = qtd_plataforma;
-		this.inimigo=inimigo;
-		this.player=player;
-		this.cenario=cenario;
+		this.inimigo = inimigo;
+		this.player = player;
+		this.cenario = cenario;
 	}
 
 	public int getAltura() {
@@ -67,7 +67,7 @@ public class Fase {
 	public void setInimigos(Inimigo[] inimigo) {
 		this.inimigo = inimigo;
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -75,7 +75,7 @@ public class Fase {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+
 	public Cenario getCenario() {
 		return cenario;
 	}
