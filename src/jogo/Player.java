@@ -5,104 +5,102 @@ import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Player extends Renderizavel{
-	
+public class Player extends Renderizavel {
 
 	private Plataforma[] plat;
-	private boolean plataforma=false;
-	private boolean chao=false;
-	private boolean saltar=false;
-	private int posicao=1;
+	private boolean plataforma = false;
+	private boolean chao = false;
+	private boolean saltar = false;
+	private int posicao = 1;
 	private Game game;
 	private float xtiro;
 	private float ytiro;
-	private boolean permiteTiro=true;
-	private int i=0;
+	private boolean permiteTiro = true;
+	private int i = 0;
 	private BufferedImage player;
-	private int direcao=1;
-	private boolean morreu=false;
-	
-	public Player(int x, int y, int altura, int largura, Game game){
-		super(x, y, altura, largura,false,false,false);
-		this.game=game;
+	private int direcao = 1;
+	private boolean morreu = false;
+
+	public Player(int x, int y, int altura, int largura, Game game) {
+		super(x, y, altura, largura, false, false, false);
+		this.game = game;
 		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
 		player = ss.grabImage(posicao, 1, 35, 68);
 	}
-	
-	public void tick(){
-		if(posicao<3)
-			posicao++;
-		else 
-			posicao=0;
-		
-		if(esquerda)
-			x-=4;
-		if(direita)
-			x+=4;
-		
-		if(x>=590)x=590;
-		if(x<=0)x=0;
-		
-		for(int i = 0; i<plat.length-1; i++)
-		if((x+largura)>plat[i].getX() && x<(plat[i].getX()+plat[i].getLargura()) && (y+altura)>=plat[i].getY() && (y+altura)<=(plat[i].getY()+7) && game.getVelocidade()>0){
-			//System.out.println("Aqui tem uma plataforma!");
-			plataforma=true;
-			break;
+
+	public void tick() {
+		if (posicao < 3) posicao++;
+		else posicao = 0;
+
+		if (esquerda) x -= 4;
+		if (direita) x += 4;
+
+		if (x >= 590) x = 590;
+		if (x <= 0) x = 0;
+
+		for (int i = 0; i < plat.length - 1; i++)
+			if ((x + largura) > plat[i].getX() && x < (plat[i].getX() + plat[i].getLargura())
+					&& (y + altura) >= plat[i].getY() && (y + altura) <= (plat[i].getY() + 7)
+					&& game.getVelocidade() > 0) {
+				// System.out.println("Aqui tem uma plataforma!");
+				plataforma = true;
+				break;
+			}
+			else plataforma = false;
+		if ((x + this.largura) > plat[plat.length - 1].getX()
+				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getLargura())
+				&& (y + this.altura) >= plat[plat.length - 1].getY()) {
+			// System.out.println("Aqui tem um chao!");
+			chao = true;
 		}
-		else plataforma=false;
-		if((x+this.largura)>plat[plat.length-1].getX() && x<(plat[plat.length-1].getX()+plat[plat.length-1].getLargura()) && (y+this.altura)>=plat[plat.length-1].getY()){
-			//System.out.println("Aqui tem um chao!");
-			chao=true;
-		}
-		else chao=false;
-		
-		if(!plataforma && !chao)
-			game.aplicarGravidade(this);
-		
-		if(this.saltar && (plataforma || chao)){
+		else chao = false;
+
+		if (!plataforma && !chao) game.aplicarGravidade(this);
+
+		if (this.saltar && (plataforma || chao)) {
 			game.setVelocidade(-40);
 			game.aplicarGravidade(this);
-				/*while(i<15){
-					y-=5;
-					i++;
-				}*/
-			this.saltar=false;
-			i=0;
-			}
+			/*
+			 * while(i<15){
+			 * y-=5;
+			 * i++;
+			 * }
+			 */
+			this.saltar = false;
+			i = 0;
 		}
-	
+	}
+
 	Audio audio = new Audio();
-	public void render(Graphics g){
-		
-		g.drawImage(player, (int)x, (int)y, null);
-		if(atirar & permiteTiro){
+
+	public void render(Graphics g) {
+
+		g.drawImage(player, (int) x, (int) y, null);
+		if (atirar & permiteTiro) {
 			permiteTiro = false;
 		}
-		if(atirar)
-			if(direcao==0)
-				atirar(xtiro+=3,ytiro);
-			else if(direcao==1)
-				atirar(xtiro-=3,ytiro);
-		if(xtiro<0)
-			atirar = false;
+		if (atirar) if (direcao == 0) atirar(xtiro += 3, ytiro);
+		else if (direcao == 1) atirar(xtiro -= 3, ytiro);
+		if (xtiro < 0) atirar = false;
 	}
-	
-	public Rectangle getBounds(){
-		return new Rectangle((int)x,(int)y,largura,altura);
+
+	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int) y, largura, altura);
 	}
-	
-	public Rectangle getTiroBounds(){
-		return new Rectangle((int)xtiro,(int)ytiro,30,30);
+
+	public Rectangle getTiroBounds() {
+		return new Rectangle((int) xtiro, (int) ytiro, 30, 30);
 	}
-	
-	public void somDeTiro(){
+
+	public void somDeTiro() {
 		audio.setFileName("C:/Users/Jota/Desktop/som de tiro.wav");
 		audio.tocarMusica();
 	}
-	public void atirar(float x, float y){
+
+	public void atirar(float x, float y) {
 		BufferStrategy bs = game.getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(game.getTiroImage(), (int)x, (int)y+20, 20, 20, game);
+		g.drawImage(game.getTiroImage(), (int) x, (int) y + 20, 20, 20, game);
 	}
 
 	public boolean getSaltar() {
@@ -128,8 +126,7 @@ public class Player extends Renderizavel{
 	public void setPlat(Plataforma plat[]) {
 		this.plat = plat;
 	}
-	
-	
+
 	public int getAltura() {
 		return altura;
 	}
@@ -194,5 +191,4 @@ public class Player extends Renderizavel{
 		this.morreu = morreu;
 	}
 
-	
 }

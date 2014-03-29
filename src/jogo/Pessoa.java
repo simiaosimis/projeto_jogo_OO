@@ -1,7 +1,7 @@
 package jogo;
 
 public class Pessoa {
-	
+
 	protected float x;
 	protected float y;
 	protected int altura;
@@ -9,24 +9,23 @@ public class Pessoa {
 	protected boolean atirar;
 	protected boolean esquerda;
 	protected boolean direita;
-	
-	
-	public Pessoa(){}
-	
+
+	public Pessoa() {
+	}
+
 	public Pessoa(int x, int y, int altura, int largura, boolean atirar, boolean esquerda, boolean direita) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.altura = altura;
 		this.largura = largura;
-		this.atirar=atirar;
-		this.esquerda=esquerda;
-		this.direita=direita;
+		this.atirar = atirar;
+		this.esquerda = esquerda;
+		this.direita = direita;
 	}
-	
-	public void atirar(){}
-	
-	
+
+	public void atirar() {
+	}
 
 	public boolean isEsquerda() {
 		return esquerda;
@@ -83,7 +82,5 @@ public class Pessoa {
 	public void setAtirar(boolean atirar) {
 		this.atirar = atirar;
 	}
-	
-	
 
 }
