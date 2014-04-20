@@ -17,7 +17,8 @@ public class Audio {
 
 	}
 
-	public void tocarMusica() {
+	// It loads and play the audio
+	public void playSong() {
 		try {
 			File file = new File(fileName);
 			if (file.exists()) {
@@ -53,6 +54,7 @@ public class Audio {
 		}
 	}
 
+	// Getters and Setters
 	public String getFileName() {
 		return fileName;
 	}
