@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Enemy extends Renderizavel {
+public class Enemy extends Renderable {
 
 	private Game game;
 	private BufferedImage enemy;
