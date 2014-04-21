@@ -1,15 +1,15 @@
 package jogo;
 
-public class Plataforma {
+public class Plataform {
 
 	private int x;
 	private int y;
-	private int largura;
+	private int width;
 
-	public Plataforma(int x, int y, int largura) {
+	public Plataform(int x, int y, int width) {
 		this.x = x;
 		this.y = y;
-		this.largura = largura;
+		this.width = width;
 	}
 
 	public int getX() {
@@ -28,12 +28,12 @@ public class Plataforma {
 		this.y = y;
 	}
 
-	public int getLargura() {
-		return largura;
+	public int getWidth() {
+		return width;
 	}
 
-	public void setLargura(int largura) {
-		this.largura = largura;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 }
