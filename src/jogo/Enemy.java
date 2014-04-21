@@ -16,6 +16,7 @@ public class Enemy extends Renderable {
 	public int direction = 0;
 	private float xshot;
 	private float yshot;
+	private int cont3 = 0;
 
 	Audio audio = new Audio();
 
@@ -31,7 +32,10 @@ public class Enemy extends Renderable {
 		}
 		else if (enemyType == 2) {
 			SpriteSheet ss = new SpriteSheet(game.ge EnemyImage2());
-		 Enemy = ss.grabImage(1, 1, 82, 26);
+			Enemy = ss.grabImage(1, 1, 82, 26);
+		}
+		else {
+			// Nothing to do.
 		}
 	}
 
@@ -42,10 +46,26 @@ public class Enemy extends Renderable {
 
 	public void render(Graphics g) {
 		g.drawImage Enemy, (int) x, (int) y, null);
-		if (shoot) if (direction == 0 && x > 0 && x < Game.WIDTH * Game.SCALE) shoot(xshot += 3, yshot);
-		else if (direction == 1 && x > 0 && x < Game.WIDTH * Game.SCALE) shoot(xshot -= 3, yshot);
-		if (xshot < -2000) xshot = x;
-		if (xshot > Game.WIDTH * Game.SCALE + 2000) xshot = x;
+		if (shoot) {
+			if (direction == 0 && x > 0 && x < Game.WIDTH * Game.SCALE) {
+				shoot(xshot += 3, yshot);
+			}	
+			else if (direction == 1 && x > 0 && x < Game.WIDTH * Game.SCALE) {
+				shoot(xshot -= 3, yshot);
+			} else {
+				// Nothing to do
+			}
+			if (xshot < -2000) {
+				xshot = x;
+			} else {
+				// Nothing to do
+			}
+			if (xshot > Game.WIDTH * Game.SCALE + 2000) {
+				xshot = x;	
+			} else {
+				// Nothing to do
+			}
+		}
 	}
 
 	public void shoot(float x, float y) {
@@ -57,8 +77,6 @@ public class Enemy extends Renderable {
 	public Rectangle getshotBounds() {
 		return new Rectangle((int) xshot, (int) yshot, 20, 20);
 	}
-
-	int cont3 = 0;
 
 	public void tick() {
 		if (enemyType == 1) {
@@ -72,6 +90,9 @@ public class Enemy extends Renderable {
 			}
 			else if (cont3 == 0) {
 				x += 1;
+			}
+			else {
+				// Nothing to do
 			}
 		}
 	}
@@ -88,6 +109,8 @@ public class Enemy extends Renderable {
 		else if (enemyType == 2) {
 			SpriteSheet ss = new SpriteSheet(game.ge EnemyImage2());
 		 Enemy = ss.grabImage(1, 1, 82, 26);
+		} else {
+			// Nothing to do
 		}
 	}
 
