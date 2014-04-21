@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Player extends Renderizavel {
+public class Player extends Renderable {
 
 	private Plataforma[] plat;
 	private boolean plataforma = false;

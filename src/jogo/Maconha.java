@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Maconha extends Pessoa {
+public class Maconha extends Person {
 
 	private Game game;
 	private BufferedImage maconha;

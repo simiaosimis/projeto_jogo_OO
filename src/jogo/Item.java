@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Item extends Renderizavel {
+public class Item extends Renderable {
 
 	private Game game;
 	private BufferedImage item;
