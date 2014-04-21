@@ -7,58 +7,58 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Renderable {
 
-	private Plataforma[] plat;
-	private boolean plataforma = false;
-	private boolean chao = false;
-	private boolean saltar = false;
-	private int posicao = 1;
+	private Plataform[] plat;
+	private boolean plataform = false;
+	private boolean floor = false;
+	private boolean jump = false;
+	private int position = 1;
 	private Game game;
-	private float xtiro;
-	private float ytiro;
-	private boolean permiteTiro = true;
+	private float xshot;
+	private float yshot;
+	private boolean doShot = true;
 	private int i = 0;
 	private BufferedImage player;
-	private int direcao = 1;
-	private boolean morreu = false;
+	private int direction = 1;
+	private boolean dead = false;
 
-	public Player(int x, int y, int altura, int largura, Game game) {
-		super(x, y, altura, largura, false, false, false);
+	public Player(int x, int y, int height, int width, Game game) {
+		super(x, y, height, width, false, false, false);
 		this.game = game;
 		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-		player = ss.grabImage(posicao, 1, 35, 68);
+		player = ss.grabImage(position, 1, 35, 68);
 	}
 
 	public void tick() {
-		if (posicao < 3) posicao++;
-		else posicao = 0;
+		if (position < 3) position++;
+		else position = 0;
 
-		if (esquerda) x -= 4;
-		if (direita) x += 4;
+		if (left) x -= 4;
+		if (right) x += 4;
 
 		if (x >= 590) x = 590;
 		if (x <= 0) x = 0;
 
 		for (int i = 0; i < plat.length - 1; i++)
-			if ((x + largura) > plat[i].getX() && x < (plat[i].getX() + plat[i].getLargura())
-					&& (y + altura) >= plat[i].getY() && (y + altura) <= (plat[i].getY() + 7)
-					&& game.getVelocidade() > 0) {
-				// System.out.println("Aqui tem uma plataforma!");
-				plataforma = true;
+			if ((x + width) > plat[i].getX() && x < (plat[i].getX() + plat[i].getwidth())
+					&& (y + height) >= plat[i].getY() && (y + height) <= (plat[i].getY() + 7)
+					&& game.getSpeed() > 0) {
+				// System.out.println("Aqui tem uma plataform!");
+				plataform = true;
 				break;
 			}
-			else plataforma = false;
-		if ((x + this.largura) > plat[plat.length - 1].getX()
-				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getLargura())
-				&& (y + this.altura) >= plat[plat.length - 1].getY()) {
-			// System.out.println("Aqui tem um chao!");
-			chao = true;
+			else plataform = false;
+		if ((x + this.width) > plat[plat.length - 1].getX()
+				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getwidth())
+				&& (y + this.height) >= plat[plat.length - 1].getY()) {
+			// System.out.println("Aqui tem um floor!");
+			floor = true;
 		}
-		else chao = false;
+		else floor = false;
 
-		if (!plataforma && !chao) game.aplicarGravidade(this);
+		if (!plataform && !floor) game.aplicarGravidade(this);
 
-		if (this.saltar && (plataforma || chao)) {
-			game.setVelocidade(-40);
+		if (this.jump && (plataform || floor)) {
+			game.setSpeed(-40);
 			game.aplicarGravidade(this);
 			/*
 			 * while(i<15){
@@ -66,7 +66,7 @@ public class Player extends Renderable {
 			 * i++;
 			 * }
 			 */
-			this.saltar = false;
+			this.jump = false;
 			i = 0;
 		}
 	}
@@ -76,71 +76,71 @@ public class Player extends Renderable {
 	public void render(Graphics g) {
 
 		g.drawImage(player, (int) x, (int) y, null);
-		if (atirar & permiteTiro) {
-			permiteTiro = false;
+		if (shoot & doShot) {
+			doShot = false;
 		}
-		if (atirar) if (direcao == 0) atirar(xtiro += 3, ytiro);
-		else if (direcao == 1) atirar(xtiro -= 3, ytiro);
-		if (xtiro < 0) atirar = false;
+		if (shoot) if (direction == 0) shoot(xshot += 3, yshot);
+		else if (direction == 1) shoot(xshot -= 3, yshot);
+		if (xshot < 0) shoot = false;
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, largura, altura);
+		return new Rectangle((int) x, (int) y, width, height);
 	}
 
-	public Rectangle getTiroBounds() {
-		return new Rectangle((int) xtiro, (int) ytiro, 30, 30);
+	public Rectangle getshotBounds() {
+		return new Rectangle((int) xshot, (int) yshot, 30, 30);
 	}
 
-	public void somDeTiro() {
-		audio.setFileName("C:/Users/Jota/Desktop/som de tiro.wav");
-		audio.tocarMusica();
+	public void shotSound() {
+		audio.setFileName("C:/Users/Jota/Desktop/som de shot.wav");
+		audio.playMusic();
 	}
 
-	public void atirar(float x, float y) {
+	public void shoot(float x, float y) {
 		BufferStrategy bs = game.getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(game.getTiroImage(), (int) x, (int) y + 20, 20, 20, game);
+		g.drawImage(game.getshotImage(), (int) x, (int) y + 20, 20, 20, game);
 	}
 
-	public boolean getSaltar() {
-		return saltar;
+	public boolean getJump() {
+		return jump;
 	}
 
-	public void setSaltar(boolean saltar) {
-		this.saltar = saltar;
+	public void setJump(boolean jump) {
+		this.jump = jump;
 	}
 
-	public Plataforma[] getPlat() {
+	public plataform[] getPlat() {
 		return plat;
 	}
 
-	public boolean isPlataforma() {
-		return plataforma;
+	public boolean isPlataform() {
+		return plataform;
 	}
 
-	public void setPlataforma(boolean plataforma) {
-		this.plataforma = plataforma;
+	public void setPlataform(boolean plataform) {
+		this.plataform = plataform;
 	}
 
-	public void setPlat(Plataforma plat[]) {
+	public void setPlat(plataform plat[]) {
 		this.plat = plat;
 	}
 
-	public int getAltura() {
-		return altura;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setAltura(int altura) {
-		this.altura = altura;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
-	public int getLargura() {
-		return largura;
+	public int getWidth() {
+		return width;
 	}
 
-	public void setLargura(int largura) {
-		this.largura = largura;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 	public Game getGame() {
@@ -151,44 +151,44 @@ public class Player extends Renderable {
 		this.game = game;
 	}
 
-	public float getXtiro() {
-		return xtiro;
+	public float getXshot() {
+		return xshot;
 	}
 
-	public void setXtiro(float xtiro) {
-		this.xtiro = xtiro;
+	public void setXshot(float xshot) {
+		this.xshot = xshot;
 	}
 
-	public float getYtiro() {
-		return ytiro;
+	public float getYshot() {
+		return yshot;
 	}
 
-	public void setYtiro(float ytiro) {
-		this.ytiro = ytiro;
+	public void setYshot(float yshot) {
+		this.yshot = yshot;
 	}
 
-	public boolean isPermiteTiro() {
-		return permiteTiro;
+	public boolean isDoShot() {
+		return doShot;
 	}
 
-	public void setPermiteTiro(boolean permiteTiro) {
-		this.permiteTiro = permiteTiro;
+	public void setDoShot(boolean doShot) {
+		this.doShot = doShot;
 	}
 
-	public int getDirecao() {
-		return direcao;
+	public int getDirection() {
+		return direction;
 	}
 
-	public void setDirecao(int direcao) {
-		this.direcao = direcao;
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 
-	public boolean isMorreu() {
-		return morreu;
+	public boolean isDead() {
+		return dead;
 	}
 
-	public void setMorreu(boolean morreu) {
-		this.morreu = morreu;
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 
 }
