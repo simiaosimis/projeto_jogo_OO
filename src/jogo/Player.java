@@ -29,45 +29,77 @@ public class Player extends Renderable {
 	}
 
 	public void tick() {
-		if (position < 3) position++;
-		else position = 0;
+		if (position < 3) {
+			position++;
+		}
+		else {
+			position = 0;
+		}
 
-		if (left) x -= 4;
-		if (right) x += 4;
+		if {(left) {
+			x -= 4;
+		}
+		else {
+			// Nothing to do
+		}
+		if (right) {
+			x += 4;
+		}
+		else {
+			// Nothing to do
+		}
 
-		if (x >= 590) x = 590;
-		if (x <= 0) x = 0;
+		if (x >= 590) {
+			x = 590;
+		}
+		else {
+			// Nothing to do
+		}
+		if (x <= 0) {
+			x = 0;
+		}
+		else {
+			// Nothing to do
+		}
 
-		for (int i = 0; i < plat.length - 1; i++)
+		// Here we have a platform
+		for (int i = 0; i < plat.length - 1; i++){
 			if ((x + width) > plat[i].getX() && x < (plat[i].getX() + plat[i].getwidth())
 					&& (y + height) >= plat[i].getY() && (y + height) <= (plat[i].getY() + 7)
 					&& game.getSpeed() > 0) {
-				// System.out.println("Aqui tem uma plataform!");
 				plataform = true;
 				break;
 			}
-			else plataform = false;
+			else {
+				plataform = false;
+			}
+		}
+		
+		// Here we have a floor
 		if ((x + this.width) > plat[plat.length - 1].getX()
 				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getwidth())
 				&& (y + this.height) >= plat[plat.length - 1].getY()) {
-			// System.out.println("Aqui tem um floor!");
 			floor = true;
 		}
-		else floor = false;
+		else {
+			floor = false;
+		}
 
-		if (!plataform && !floor) game.aplicarGravidade(this);
+		if (!plataform && !floor) {
+			game.aplicarGravidade(this);
+		}
+		else {
+			// Nothing to do
+		}
 
 		if (this.jump && (plataform || floor)) {
 			game.setSpeed(-40);
 			game.aplicarGravidade(this);
-			/*
-			 * while(i<15){
-			 * y-=5;
-			 * i++;
-			 * }
-			 */
 			this.jump = false;
 			i = 0;
+		}
+		else {
+			// Nothing to do
 		}
 	}
 
@@ -79,9 +111,29 @@ public class Player extends Renderable {
 		if (shoot & doShot) {
 			doShot = false;
 		}
-		if (shoot) if (direction == 0) shoot(xshot += 3, yshot);
-		else if (direction == 1) shoot(xshot -= 3, yshot);
-		if (xshot < 0) shoot = false;
+		else {
+			// Nothing to do
+		}
+		if (shoot) {
+			if (direction == 0) {
+				shoot(xshot += 3, yshot);
+			}
+			else if (direction == 1) {
+				shoot(xshot -= 3, yshot);
+			}
+			else {
+				// Nothing to do
+			}
+		}
+		else {
+			// Nothing to do
+		}
+		if (xshot < 0) {
+			shoot = false;
+		}
+		else {
+			// Nothing to do
+		}
 	}
 
 	public Rectangle getBounds() {
