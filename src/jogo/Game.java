@@ -115,6 +115,9 @@ public class Game extends Canvas implements Runnable {
 			for (int k = 0; k < 3; k++)
 				rendersitem[k] = true;
 		}
+		else {
+			// Nothing to do
+		}
 		p = new Player(500, 300, 68, 35, this);
 		p.setPlat(plats);
 		addKeyListener(new Keyboard(this));
@@ -124,14 +127,24 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private synchronized void start() {
-		if (running) return;
+		if (running) {
+			return;
+		}
+		else {
+			// Nothing to do
+		}
 		running = true;
 		thread = new Thread(this);
 		thread.start();
 	}
 
 	private synchronized void stop() {
-		if (!running) return;
+		if (!running) {
+			return;
+		}
+		else {
+			// Nothing to do
+		}
 		running = false;
 		try {
 			thread.join();
@@ -161,12 +174,18 @@ public class Game extends Canvas implements Runnable {
 				updates++;
 				delta--;
 			}
+			else {
+				// Nothing to do
+			}
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				// System.out.println(updates + " ticks , frames " + frames);
 				updates = 0;
 				frames = 0;
+			}
+			else {
+				// Nothing to do
 			}
 		}
 		stop();
@@ -196,15 +215,22 @@ public class Game extends Canvas implements Runnable {
 
 	public void tick() {
 		if ((p.getX() < 30 && p.getY() < 26 && p.isPlataform() && currentFase == 1) || p.isDead()) {
-			if (!p.isDead()) currentFase = 2;
+			if (!p.isDead()) {
+				currentFase = 2;
+			}
+			else {
+				// Nothing to do
+			}
 			System.out.println(currentFase);
 			p.setY(300);
 			p.setX(50);
 			p.setDoShot(true);
-			for (int r = 0; r < enemy.length; r++)
+			for (int r = 0; r < enemy.length; r++){
 				enemy[r].setDead(false);
-			for (int k = 0; k < 3; k++)
+			}
+			for (int k = 0; k < 3; k++){
 				rendersitem[k] = true;
+			}
 			enemy[0].setX(181);
 			enemy[0].setY(329);
 			enemy[0].setType(2);
@@ -265,20 +291,40 @@ public class Game extends Canvas implements Runnable {
 			for (int o = 0; o < enemy.length; o++) {
 				enemy[o].setXshot(enemy[o].getX());
 				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getTipo() == 2) enemy[o].setShoot(true);
-				if (p.isDead()) p.setDoShot(true);
+				if (enemy[o].getTipo() == 2) {
+					enemy[o].setShoot(true);
+				}
+				else {
+					// Nothing to do
+				}
+				if (p.isDead()) {
+					p.setDoShot(true);
+				}
+				else {
+					// Nothing to do
+				}
 				p.setDead(false);
 			}
 		}
+		else {
+			// Nothing to do
+		}
 		if ((p.getX() < 50 && p.getY() < 50 && p.isPlataform() && currentFase == 2) || p.isDead()) {
-			if (!p.isDead()) currentFase = 3;
+			if (!p.isDead()) {
+				currentFase = 3;
+			}
+			else {
+				// Nothing to do
+			}
 			p.setY(300);
 			p.setX(500);
 			p.setDoShot(true);
-			for (int r = 0; r < enemy.length; r++)
+			for (int r = 0; r < enemy.length; r++){
 				enemy[r].setDead(false);
-			for (int k = 0; k < 3; k++)
+			}
+			for (int k = 0; k < 3; k++){
 				rendersitem[k] = true;
+			}
 			enemy[0].setX(60);
 			enemy[0].setY(151);
 			enemy[0].setType(2);
@@ -344,20 +390,40 @@ public class Game extends Canvas implements Runnable {
 			for (int o = 0; o < enemy.length; o++) {
 				enemy[o].setXshot(enemy[o].getX());
 				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getTipo() == 2) enemy[o].setShoot(true);
+				if (enemy[o].getTipo() == 2) {
+					enemy[o].setShoot(true);
+				}
+				else {
+					// Nothing to do
+				}
 			}
-			if (p.isDead()) p.setDoShot(true);
+			if (p.isDead()) {
+				p.setDoShot(true);
+			}
+			else {
+				// Nothing to do
+			}
 			p.setDead(false);
 		}
+		else {
+			// Nothing to do
+		}
 		if ((p.getX() > 588 && p.getY() < 71 && p.isPlataform() && currentFase == 3) || p.isDead()) {
-			if (!p.isDead()) currentFase = 4;
+			if (!p.isDead()) {
+				currentFase = 4;
+			}
+			else {
+				// Nothing to do
+			}
 			p.setY(300);
 			p.setX(500);
 			p.setDoShot(true);
-			for (int r = 0; r < enemy.length; r++)
+			for (int r = 0; r < enemy.length; r++){
 				enemy[r].setDead(false);
-			for (int k = 0; k < 3; k++)
+			}
+			for (int k = 0; k < 3; k++){
 				rendersitem[k] = true;
+			}
 			enemy[0].setX(11);
 			enemy[0].setY(222);
 			enemy[0].setType(2);
@@ -419,12 +485,30 @@ public class Game extends Canvas implements Runnable {
 			for (int o = 0; o < enemy.length; o++) {
 				enemy[o].setXshot(enemy[o].getX());
 				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getTipo() == 2) enemy[o].setShoot(true);
+				if (enemy[o].getTipo() == 2) {
+					enemy[o].setShoot(true);
+				}
+				else {
+					// Nothing to do
+				}
 			}
-			if (p.isDead()) p.setDoShot(true);
+			if (p.isDead()) {
+				p.setDoShot(true);
+			}
+			else {
+				// Nothing to do
+			}
 			p.setDead(false);
 		}
-		if ((p.getX() < 40 && p.getY() < 94 && p.isPlataform() && currentFase == 4)) introduction = 4;
+		else {
+			// Nothing to do
+		}
+		if ((p.getX() < 40 && p.getY() < 94 && p.isPlataform() && currentFase == 4)) {
+			introduction = 4;
+		}
+		else {
+			// Nothing to do
+		}
 		if (currentFase != lastFase) {
 			if (currentFase == 2) {
 				lastFase = 2;
@@ -434,6 +518,9 @@ public class Game extends Canvas implements Runnable {
 					e.printStackTrace();
 				}
 			}
+			else {
+				// Nothing to do
+			}
 			if (currentFase == 3) {
 				lastFase = 3;
 				try {
@@ -441,6 +528,9 @@ public class Game extends Canvas implements Runnable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
+			else {
+				// Nothing to do
 			}
 			if (currentFase == 4) {
 				lastFase = 4;
@@ -450,32 +540,78 @@ public class Game extends Canvas implements Runnable {
 					e.printStackTrace();
 				}
 			}
+			else {
+				// Nothing to do
+			}
+		}
+		else {
+			// Nothing to do
 		}
 		if ((Mouse.getX() > 138 && Mouse.getX() < 246) && (Mouse.getY() > 308 && Mouse.getY() < 332)) {
 			introduction = 1;
 			Mouse.setMouseY(500);
 		}
+		else {
+			// Nothing to do
+		}
 		if (introduction == 2) {
 			currentFase = 1;
 			introduction = 3;
 		}
+		else {
+			// Nothing to do
+		}
 		p.tick();
-		for (int j = 0; j < enemy.length; j++)
-			if (!enemy[j].dead) enemy[j].tick();
+		for (int j = 0; j < enemy.length; j++){
+			if (!enemy[j].dead) {
+				enemy[j].tick();
+			}
+			else {
+				// Nothing to do
+			}
+		}
 		if (collision(p, enemy)) {
-			if (currentFase == 1) init();
-			else p.setDead(true);
+			if (currentFase == 1) {
+				init();
+			}
+			else {
+				p.setDead(true);
+			}
+		}
+		else {
+			// Nothing to do
 		}
 		if (collisionShot(p, enemy) >= 0) {
 			enemy[collisionShot(p, enemy)].dead = true;
-			if (p.getDirecao() == 0) p.setXshot(1000);
-			else if (p.getDirecao() == 1) p.setXshot(-50);
+			if (p.getDirecao() == 0) {
+				p.setXshot(1000);
+			}
+			else if (p.getDirecao() == 1) {
+				p.setXshot(-50);
+			}
+			else {
+				// Nothing to do
+			}
+		}
+		else {
+			// Nothing to do
 		}
 		if (collisionShotPlayer(p, enemy)) {
-			for (int i = 0; i < enemy.length; i++)
-				if (enemy[i].getDirecao() == 0) enemy[i].setXshot(1000);
-				else if (enemy[i].getDirecao() == 1) enemy[i].setXshot(-50);
+			for (int i = 0; i < enemy.length; i++){
+				if (enemy[i].getDirecao() == 0) {
+					enemy[i].setXshot(1000);
+				}
+				else if (enemy[i].getDirecao() == 1) {
+					enemy[i].setXshot(-50);
+				}
+				else {
+					// Nothing to do
+				}
+			}
 			p.setDead(true);
+		}
+		else {
+			// Nothing to do
 		}
 		collisionItem(p, item);
 		System.out.println("x:  " + Mouse.getX() + " y: " + Mouse.getY());
@@ -490,39 +626,91 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
+		else {
+			// Nothing to do
+		}
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-		for (int j = 0; j < item.length; j++)
-			if (rendersitem[j]) item[j].render(g);
+		for (int j = 0; j < item.length; j++){
+			if (rendersitem[j]) {
+				item[j].render(g);
+			}
+			else {
+				// Nothing to do
+			}
+		}
 		g.fillRect(Mouse.getX() - 2, Mouse.getY() - 2, 4, 4);
 		p.render(g);
-		for (int j = 0; j < enemy.length; j++)
-			if (!enemy[j].dead) enemy[j].render(g);
-		if (currentFase == 0) g.drawImage(menu, 0, 0, getWidth(), getHeight(), this);
+		for (int j = 0; j < enemy.length; j++){
+			if (!enemy[j].dead) {
+				enemy[j].render(g);
+			}
+			else {
+				// Nothing to do
+			}
+		}
+		if (currentFase == 0) {
+			g.drawImage(menu, 0, 0, getWidth(), getHeight(), this);
+		}
+		else {
+			// Nothing to do
+		}
 		if (introduction == 1) {
 			g.drawImage(intro1, 0, 0, getWidth(), getHeight(), this);
 			o++;
 			if (o >= 30) {
 				g.drawImage(intro2, 0, 0, getWidth(), getHeight(), this);
 			}
+			else {
+				// Nothing to do
+			}
 			if (o >= 60) {
 				g.drawImage(intro3, 0, 0, getWidth(), getHeight(), this);
 			}
-			if (o >= 90) introduction = 2;
+			else {
+				// Nothing to do
+			}
+			if (o >= 90) {
+				introduction = 2;
+			}
+			else {
+				// Nothing to do
+			}
+		}
+		else {
+			// Nothing to do
 		}
 
-		if (currentFase == 1) g.drawImage(leftArrow, 0, 25, 43, 46, this);
+		if (currentFase == 1) {
+			g.drawImage(leftArrow, 0, 25, 43, 46, this);
+		}
+		else {
+			// Nothing to do
+		}
 		if (currentFase == 2) {
 			g.drawImage(leftArrow, 0, 47, 43, 46, this);
+		}
+		else {
+			// Nothing to do
 		}
 		if (currentFase == 3) {
 			g.drawImage(rigthArrow, 588, 25, 43, 46, this);
 		}
+		else {
+			// Nothing to do
+		}
 		if (currentFase == 4) {
 			g.drawImage(raquel, 0, 18, 38, 68, this);
-
 		}
-		if (introduction == 4) g.drawImage(end, 0, 0, getWidth(), getHeight(), this);
+		else {
+			// Nothing to do
+		}
+		if (introduction == 4) {
+			g.drawImage(end, 0, 0, getWidth(), getHeight(), this);
+		}
+		else {
+			// Nothing to do
+		}
 		g.dispose();
 		bs.show();
 	}
@@ -540,42 +728,60 @@ public class Game extends Canvas implements Runnable {
 
 	public boolean collision(Player a, Enemy[] b) {
 
-		for (int i = 0; i < b.length; i++)
+		for (int i = 0; i < b.length; i++){
 			if (b[i].getTipo() == 1) {
 				if (!b[i].dead && a.getBounds().intersects(b[i].getBounds())) {
 					System.out.println("COLIDIU");
 					enemy[0].deathSound();
 					return true;
 				}
+				else {
+					// Nothing to do
+				}
 			}
-
+			else {
+				// Nothing to do
+			}
+		}
 		return false;
 	}
 
 	public boolean collisionItem(Player a, Item[] b) {
-		for (int i = 0; i < b.length; i++)
+		for (int i = 0; i < b.length; i++){
 			if (a.getBounds().intersects(b[i].getBounds())) {
 				rendersitem[i] = false;
 				return true;
 			}
+			else {
+				// Nothing to do
+			}
+		}
 		return false;
 	}
 
 	public int collisionShot(Player a, Enemy[] b) {
-		for (int i = 0; i < b.length; i++)
+		for (int i = 0; i < b.length; i++){
 			if (a.getshotBounds().intersects(b[i].getBounds())) {
 				System.out.println("MORREU");
 				return i;
 			}
+			else {
+				// Nothing to do
+			}
+		}
 		return -1;
 	}
 
 	public boolean collisionShotPlayer(Player a, Enemy[] b) {
-		for (int i = 0; i < b.length; i++)
+		for (int i = 0; i < b.length; i++) {
 			if (a.getBounds().intersects(b[i].getshotBounds())) {
 				enemy[0].deathSound();
 				return true;
 			}
+			else {
+				// Nothing to do
+			}
+		}
 		return false;
 	}
 
@@ -583,17 +789,35 @@ public class Game extends Canvas implements Runnable {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_RIGHT) {
 			p.setRight(true);
-			if (p.isDoShot()) p.setDirecao(0);
+			if (p.isDoShot()) {
+				p.setDirecao(0);
+			}
+			else {
+				// Nothing to do
+			}
 		}
 		else if (key == KeyEvent.VK_LEFT) {
 			p.setLeft(true);
-			if (p.isDoShot()) p.setDirecao(1);
+			if (p.isDoShot()) {
+				p.setDirecao(1);
+			}
+			else {
+				// Nothing to do
+			}
+		}
+		else {
+			// Nothing to do
 		}
 		if (key == KeyEvent.VK_SPACE) {
 			p.setSaltar(true);
 		}
+		else {
+			// Nothing to do
+		}
 		if (key == KeyEvent.VK_UP) {
-
+		}
+		else {
+			// Nothing to do
 		}
 		if (key == KeyEvent.VK_DOWN) {
 			if (p.isDoShot()) {
@@ -602,6 +826,12 @@ public class Game extends Canvas implements Runnable {
 				p.setShoot(true);
 				p.shotSound();
 			}
+			else {
+				// Nothing to do
+			}
+		}
+		else {
+			// Nothing to do
 		}
 	}
 
@@ -609,11 +839,17 @@ public class Game extends Canvas implements Runnable {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_SPACE) {
 		}
+		else {
+			// Nothing to do
+		}
 		if (key == KeyEvent.VK_RIGHT) {
 			p.setRight(false);
 		}
 		else if (key == KeyEvent.VK_LEFT) {
 			p.setLeft(false);
+		}
+		else {
+			// Nothing to do
 		}
 	}
 
