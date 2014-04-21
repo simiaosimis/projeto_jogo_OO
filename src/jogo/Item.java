@@ -9,9 +9,9 @@ public class Item extends Renderizavel {
 	private Game game;
 	private BufferedImage item;
 
-	Item(int x, int y, int altura, int largura, Game game) {
+	Item(int x, int y, int height, int width, Game game) {
 
-		super(x, y, altura, largura, false, false, false);
+		super(x, y, height, width, false, false, false);
 		this.game = game;
 
 		SpriteSheet ss = new SpriteSheet(game.getImageitem());
@@ -20,7 +20,7 @@ public class Item extends Renderizavel {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, largura, altura);
+		return new Rectangle((int) x, (int) y, width, height);
 	}
 
 	public void render(Graphics g) {
