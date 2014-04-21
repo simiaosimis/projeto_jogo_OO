@@ -2,70 +2,70 @@ package jogo;
 
 public class Fase {
 
-	private int altura;
-	private int largura;
-	private boolean completo;// atributo se passou da fase ou nao
-	private int qtd_plataforma;
-	public Inimigo inimigo[];
+	private int height;
+	private int width;
+	private boolean complete;// atributo se passou da fase ou nao
+	private int qtd_platform;
+	public Inimigo enemies[];
 	public Player player;
-	public Cenario cenario;
+	public Cenario scene;
 
 	public Fase() {
-		this.altura = 0;
-		this.largura = 0;
-		this.completo = false;
-		this.qtd_plataforma = 0;
+		this.height = 0;
+		this.width = 0;
+		this.complete = false;
+		this.qtd_platform = 0;
 	}
 
-	public Fase(int altura, int largura, boolean completo, int qtd_plataforma, Inimigo[] inimigo, Player player,
-			Cenario cenario) {
-		this.altura = altura;
-		this.largura = largura;
-		this.completo = completo;
-		this.qtd_plataforma = qtd_plataforma;
-		this.inimigo = inimigo;
+	public Fase(int height, int width, boolean complete, int qtd_platform, Inimigo[] enemies, Player player,
+			Cenario scene) {
+		this.height = height;
+		this.width = width;
+		this.complete = complete;
+		this.qtd_platform = qtd_platform;
+		this.enemies = enemies;
 		this.player = player;
-		this.cenario = cenario;
+		this.scene = scene;
 	}
 
-	public int getAltura() {
-		return altura;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setAltura(int altura) {
-		this.altura = altura;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
-	public int getLargura() {
-		return largura;
+	public int getWidth() {
+		return width;
 	}
 
-	public void setLargura(int largura) {
-		this.largura = largura;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
-	public boolean getCompleto() {
-		return completo;
+	public boolean getComplete() {
+		return complete;
 	}
 
-	public void setCompleto(boolean completo) {
-		this.completo = completo;
+	public void setComplete(boolean complete) {
+		this.complete = complete;
 	}
 
-	public int getQtd_plataforma() {
-		return qtd_plataforma;
+	public int getQtd_platform() {
+		return qtd_platform;
 	}
 
-	public void setQtd_plataforma(int qtd_plataforma) {
-		this.qtd_plataforma = qtd_plataforma;
+	public void setQtd_platform(int qtd_platform) {
+		this.qtd_platform = qtd_platform;
 	}
 
-	public Inimigo[] getInimigos() {
-		return inimigo;
+	public Inimigo[] getEnemies() {
+		return enemies;
 	}
 
-	public void setInimigos(Inimigo[] inimigo) {
-		this.inimigo = inimigo;
+	public void setEnemies(Inimigo[] enemies) {
+		this.enemies = enemies;
 	}
 
 	public Player getPlayer() {
@@ -76,12 +76,12 @@ public class Fase {
 		this.player = player;
 	}
 
-	public Cenario getCenario() {
-		return cenario;
+	public Cenario getScene() {
+		return scene;
 	}
 
-	public void setCenario(Cenario cenario) {
-		this.cenario = cenario;
+	public void setScene(Cenario scene) {
+		this.scene = scene;
 	}
 
 }
