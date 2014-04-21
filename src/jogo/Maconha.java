@@ -9,9 +9,9 @@ public class Maconha extends Pessoa {
 	private Game game;
 	private BufferedImage maconha;
 
-	Maconha(int x, int y, int altura, int largura, Game game) {
+	Maconha(int x, int y, int height, int width, Game game) {
 
-		super(x, y, altura, largura, false, false, false);
+		super(x, y, height, width, false, false, false);
 		this.game = game;
 
 		SpriteSheet ss = new SpriteSheet(game.getImageMaconha());
@@ -20,7 +20,7 @@ public class Maconha extends Pessoa {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, largura, altura);
+		return new Rectangle((int) x, (int) y, width, height);
 	}
 
 	public void render(Graphics g) {
