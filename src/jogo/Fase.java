@@ -6,9 +6,9 @@ public class Fase {
 	private int width;
 	private boolean complete;// atributo se passou da fase ou nao
 	private int qtd_platform;
-	public Inimigo enemies[];
+	public Enemy enemies[];
 	public Player player;
-	public Cenario scene;
+	public Scenario scene;
 
 	public Fase() {
 		this.height = 0;
@@ -17,8 +17,8 @@ public class Fase {
 		this.qtd_platform = 0;
 	}
 
-	public Fase(int height, int width, boolean complete, int qtd_platform, Inimigo[] enemies, Player player,
-			Cenario scene) {
+	public Fase(int height, int width, boolean complete, int qtd_platform, Enemy[] enemies, Player player,
+			Scenario scene) {
 		this.height = height;
 		this.width = width;
 		this.complete = complete;
@@ -60,11 +60,11 @@ public class Fase {
 		this.qtd_platform = qtd_platform;
 	}
 
-	public Inimigo[] getEnemies() {
+	public Enemy[] getEnemies() {
 		return enemies;
 	}
 
-	public void setEnemies(Inimigo[] enemies) {
+	public void setEnemies(Enemy[] enemies) {
 		this.enemies = enemies;
 	}
 
@@ -76,11 +76,11 @@ public class Fase {
 		this.player = player;
 	}
 
-	public Cenario getScene() {
+	public Scenario getScene() {
 		return scene;
 	}
 
-	public void setScene(Cenario scene) {
+	public void setScene(Scenario scene) {
 		this.scene = scene;
 	}
 

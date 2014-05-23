@@ -36,7 +36,7 @@ public class Player extends Renderable {
 			position = 0;
 		}
 
-		if {(left) {
+		if (left) {
 			x -= 4;
 		}
 		else {
@@ -64,7 +64,7 @@ public class Player extends Renderable {
 
 		// Here we have a platform
 		for (int i = 0; i < plat.length - 1; i++){
-			if ((x + width) > plat[i].getX() && x < (plat[i].getX() + plat[i].getwidth())
+			if ((x + width) > plat[i].getX() && x < (plat[i].getX() + plat[i].getWidth())
 					&& (y + height) >= plat[i].getY() && (y + height) <= (plat[i].getY() + 7)
 					&& game.getSpeed() > 0) {
 				plataform = true;
@@ -77,7 +77,7 @@ public class Player extends Renderable {
 		
 		// Here we have a floor
 		if ((x + this.width) > plat[plat.length - 1].getX()
-				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getwidth())
+				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getWidth())
 				&& (y + this.height) >= plat[plat.length - 1].getY()) {
 			floor = true;
 		}
@@ -86,7 +86,7 @@ public class Player extends Renderable {
 		}
 
 		if (!plataform && !floor) {
-			game.aplicarGravidade(this);
+			game.applyGravity(this);
 		}
 		else {
 			// Nothing to do
@@ -94,7 +94,7 @@ public class Player extends Renderable {
 
 		if (this.jump && (plataform || floor)) {
 			game.setSpeed(-40);
-			game.aplicarGravidade(this);
+			game.applyGravity(this);
 			this.jump = false;
 			i = 0;
 		}
@@ -146,13 +146,13 @@ public class Player extends Renderable {
 
 	public void shotSound() {
 		audio.setFileName("C:/Users/Jota/Desktop/som de shot.wav");
-		audio.playMusic();
+		audio.playSong();
 	}
 
 	public void shoot(float x, float y) {
 		BufferStrategy bs = game.getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(game.getshotImage(), (int) x, (int) y + 20, 20, 20, game);
+		g.drawImage(game.getShotImage(), (int) x, (int) y + 20, 20, 20, game);
 	}
 
 	public boolean getJump() {
@@ -163,7 +163,7 @@ public class Player extends Renderable {
 		this.jump = jump;
 	}
 
-	public plataform[] getPlat() {
+	public Plataform[] getPlat() {
 		return plat;
 	}
 
@@ -175,7 +175,7 @@ public class Player extends Renderable {
 		this.plataform = plataform;
 	}
 
-	public void setPlat(plataform plat[]) {
+	public void setPlat(Plataform plat[]) {
 		this.plat = plat;
 	}
 

@@ -27,12 +27,12 @@ public class Enemy extends Renderable {
 		this.enemyType = enemyType;
 		dead = false;
 		if (enemyType == 1) {
-			SpriteSheet ss = new SpriteSheet(game.ge EnemyImage());
-		 Enemy = ss.grabImage(1, 1, 38, 68);
+			SpriteSheet ss = new SpriteSheet(game.getEnemyImage());
+			this.enemy = ss.grabImage(1, 1, 38, 68);
 		}
 		else if (enemyType == 2) {
-			SpriteSheet ss = new SpriteSheet(game.ge EnemyImage2());
-			Enemy = ss.grabImage(1, 1, 82, 26);
+			SpriteSheet ss = new SpriteSheet(game.getEnemyImage2());
+			this.enemy = ss.grabImage(1, 1, 82, 26);
 		}
 		else {
 			// Nothing to do.
@@ -45,7 +45,7 @@ public class Enemy extends Renderable {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage Enemy, (int) x, (int) y, null);
+		g.drawImage (this.enemy, (int) x, (int) y, null);
 		if (shoot) {
 			if (direction == 0 && x > 0 && x < Game.WIDTH * Game.SCALE) {
 				shoot(xshot += 3, yshot);
@@ -71,7 +71,7 @@ public class Enemy extends Renderable {
 	public void shoot(float x, float y) {
 		BufferStrategy bs = game.getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(game.getshotImage(), (int) x, (int) y + 20, 20, 20, game);
+		g.drawImage(game.getShotImage(), (int) x, (int) y + 20, 20, 20, game);
 	}
 
 	public Rectangle getshotBounds() {
@@ -103,12 +103,12 @@ public class Enemy extends Renderable {
 
 	public void setImage() {
 		if (enemyType == 1) {
-			SpriteSheet ss = new SpriteSheet(game.ge EnemyImage());
-		 Enemy = ss.grabImage(1, 1, 38, 68);
+			SpriteSheet ss = new SpriteSheet(game.getEnemyImage());
+			this.enemy = ss.grabImage(1, 1, 38, 68);
 		}
 		else if (enemyType == 2) {
-			SpriteSheet ss = new SpriteSheet(game.ge EnemyImage2());
-		 Enemy = ss.grabImage(1, 1, 82, 26);
+			SpriteSheet ss = new SpriteSheet(game.getEnemyImage2());
+			this.enemy = ss.grabImage(1, 1, 82, 26);
 		} else {
 			// Nothing to do
 		}

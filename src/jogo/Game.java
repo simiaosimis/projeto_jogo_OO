@@ -39,26 +39,26 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage end;
 	private int introduction = 0;
 
-	private Player p;
-	private Plataforma floor = new Plataforma(0, 412, WIDTH * SCALE);
-	private Plataforma plat = new Plataforma(300, 285, 100);
-	private Plataforma plat2 = new Plataforma(250, 375, 100);
-	private Plataforma plat3 = new Plataforma(0, 316, 195);
-	private Plataforma plat4 = new Plataforma(282, 143, 129);
-	private Plataforma plat5 = new Plataforma(265, 217, 162);
-	private Plataforma plat6 = new Plataforma(491, 252, 158);
-	private Plataforma plat7 = new Plataforma(0, 183, 210);
-	private Plataforma plat8 = new Plataforma(0, 72, 411);
-	private Plataforma plat9 = new Plataforma(457, 110, 160);
-	private Plataforma plat10 = new Plataforma(0, 0, 0);
-	private Plataforma[] plats = { plat, plat2, plat3, plat4, plat5, plat6, plat7, plat8, plat9, plat10, floor };
-	private enemy enemy1;
-	private enemy enemy2;
-	private enemy enemy3;
-	private enemy enemy4;
-	private enemy enemy5;
-	private enemy enemy6;
-	private enemy enemy[] = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
+	private Player player;
+	private Plataform floor = new Plataform(0, 412, WIDTH * SCALE);
+	private Plataform plat = new Plataform(300, 285, 100);
+	private Plataform plat2 = new Plataform(250, 375, 100);
+	private Plataform plat3 = new Plataform(0, 316, 195);
+	private Plataform plat4 = new Plataform(282, 143, 129);
+	private Plataform plat5 = new Plataform(265, 217, 162);
+	private Plataform plat6 = new Plataform(491, 252, 158);
+	private Plataform plat7 = new Plataform(0, 183, 210);
+	private Plataform plat8 = new Plataform(0, 72, 411);
+	private Plataform plat9 = new Plataform(457, 110, 160);
+	private Plataform plat10 = new Plataform(0, 0, 0);
+	private Plataform[] plats = { plat, plat2, plat3, plat4, plat5, plat6, plat7, plat8, plat9, plat10, floor };
+	private Enemy enemy1;
+	private Enemy enemy2;
+	private Enemy enemy3;
+	private Enemy enemy4;
+	private Enemy enemy5;
+	private Enemy enemy6;
+	private Enemy enemy[] = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
 	private Item item1;
 	private Item item2;
 	private Item item3;
@@ -70,7 +70,7 @@ public class Game extends Canvas implements Runnable {
 	BufferedImageLoader loader = new BufferedImageLoader();
 
 	public void backgroundSound() {
-		audio.setFileName("C:/Users/Jota/Desktop/09 Dryad Of The Woods.wav");
+		audio.setFileName("C:/Users/Simiao/Desktop/09 Dryad Of The Woods.wav");
 		audio.playSong();
 	}
 
@@ -83,29 +83,29 @@ public class Game extends Canvas implements Runnable {
 				spriteSheet = loader.loadImage("/jogo/player.png");
 				imageitem = loader.loadImage("/jogo/item.png");
 				menu = loader.loadImage("/jogo/menu.png");
-				shot = loader.loadImage("/jogo/shot.png");
+				shot = loader.loadImage("/jogo/tiro.png");
 				intro1 = loader.loadImage("/jogo/Intro 1.png");
 				intro2 = loader.loadImage("/jogo/Intro 2.png");
 				intro3 = loader.loadImage("/jogo/Intro 3.png");
 				leftArrow = loader.loadImage("placaEsquerda.png");
 				rigthArrow = loader.loadImage("placaDireita.png");
 				raquel = loader.loadImage("/jogo/raquel.png");
-				end = loader.loadImage("/jogo/end.png");
+				end = loader.loadImage("/jogo/fim.png");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			enemy[0] = new enemy(0, 256, 60, 35, this, 1);
+			enemy[0] = new Enemy(0, 256, 60, 35, this, 1);
 			enemy[0].setLeftLimit(480);
-			enemy[1] = new enemy(0, 116, 60, 35, this, 1);
+			enemy[1] = new Enemy(0, 116, 60, 35, this, 1);
 			enemy[1].setLeftLimit(470);
-			enemy[2] = new enemy(269, 150, 60, 35, this, 1);
+			enemy[2] = new Enemy(269, 150, 60, 35, this, 1);
 			enemy[2].setLeftLimit(250);
 			enemy[2].setRightLimit(269);
-			enemy[3] = new enemy(-100, 116, 60, 35, this, 2);
+			enemy[3] = new Enemy(-100, 116, 60, 35, this, 2);
 			enemy[3].setLeftLimit(470);
-			enemy[4] = new enemy(-100, 256, 60, 35, this, 2);
+			enemy[4] = new Enemy(-100, 256, 60, 35, this, 2);
 			enemy[4].setLeftLimit(480);
-			enemy[5] = new enemy(-100, 116, 60, 35, this, 2);
+			enemy[5] = new Enemy(-100, 116, 60, 35, this, 2);
 			enemy[5].setLeftLimit(470);
 			item[0] = new Item(-530, 114, 30, 30, this);
 			item[1] = new Item(-530, 167, 30, 30, this);
@@ -118,8 +118,8 @@ public class Game extends Canvas implements Runnable {
 		else {
 			// Nothing to do
 		}
-		p = new Player(500, 300, 68, 35, this);
-		p.setPlat(plats);
+		player = new Player(500, 300, 68, 35, this);
+		player.setPlat(plats);
 		addKeyListener(new Keyboard(this));
 		Mouse mouse = new Mouse();
 		addMouseListener(mouse);
@@ -214,17 +214,17 @@ public class Game extends Canvas implements Runnable {
 	 */
 
 	public void tick() {
-		if ((p.getX() < 30 && p.getY() < 26 && p.isPlataform() && currentFase == 1) || p.isDead()) {
-			if (!p.isDead()) {
+		if ((player.getX() < 30 && player.getY() < 26 && player.isPlataform() && currentFase == 1) || player.isDead()) {
+			if (!player.isDead()) {
 				currentFase = 2;
 			}
 			else {
 				// Nothing to do
 			}
 			System.out.println(currentFase);
-			p.setY(300);
-			p.setX(50);
-			p.setDoShot(true);
+			player.setY(300);
+			player.setX(50);
+			player.setDoShot(true);
 			for (int r = 0; r < enemy.length; r++){
 				enemy[r].setDead(false);
 			}
@@ -233,28 +233,28 @@ public class Game extends Canvas implements Runnable {
 			}
 			enemy[0].setX(181);
 			enemy[0].setY(329);
-			enemy[0].setType(2);
+			enemy[0].setEnemyType(2);
 			enemy[0].setImage();
 			enemy[1].setX(181);
 			enemy[1].setY(263);
-			enemy[1].setType(2);
+			enemy[1].setEnemyType(2);
 			enemy[1].setImage();
 			enemy[2].setX(181);
 			enemy[2].setY(195);
-			enemy[2].setType(2);
+			enemy[2].setEnemyType(2);
 			enemy[2].setImage();
 			enemy[3].setX(181);
 			enemy[3].setY(128);
-			enemy[3].setType(2);
+			enemy[3].setEnemyType(2);
 			enemy[3].setImage();
 			enemy[4].setX(520);
 			enemy[4].setY(258);
-			enemy[4].setType(1);
+			enemy[4].setEnemyType(1);
 			enemy[4].setImage();
 			enemy[4].setLeftLimit(25);
 			enemy[4].setRightLimit(520);
 			enemy[5].setX(-200);
-			enemy[5].setType(2);
+			enemy[5].setEnemyType(2);
 			plat.setX(487);
 			plat.setY(369);
 			plat.setWidth(54);
@@ -291,34 +291,34 @@ public class Game extends Canvas implements Runnable {
 			for (int o = 0; o < enemy.length; o++) {
 				enemy[o].setXshot(enemy[o].getX());
 				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getTipo() == 2) {
+				if (enemy[o].getEnemyType() == 2) {
 					enemy[o].setShoot(true);
 				}
 				else {
 					// Nothing to do
 				}
-				if (p.isDead()) {
-					p.setDoShot(true);
+				if (player.isDead()) {
+					player.setDoShot(true);
 				}
 				else {
 					// Nothing to do
 				}
-				p.setDead(false);
+				player.setDead(false);
 			}
 		}
 		else {
 			// Nothing to do
 		}
-		if ((p.getX() < 50 && p.getY() < 50 && p.isPlataform() && currentFase == 2) || p.isDead()) {
-			if (!p.isDead()) {
+		if ((player.getX() < 50 && player.getY() < 50 && player.isPlataform() && currentFase == 2) || player.isDead()) {
+			if (!player.isDead()) {
 				currentFase = 3;
 			}
 			else {
 				// Nothing to do
 			}
-			p.setY(300);
-			p.setX(500);
-			p.setDoShot(true);
+			player.setY(300);
+			player.setX(500);
+			player.setDoShot(true);
 			for (int r = 0; r < enemy.length; r++){
 				enemy[r].setDead(false);
 			}
@@ -327,31 +327,31 @@ public class Game extends Canvas implements Runnable {
 			}
 			enemy[0].setX(60);
 			enemy[0].setY(151);
-			enemy[0].setType(2);
+			enemy[0].setEnemyType(2);
 			enemy[0].setImage();
 			enemy[1].setX(60);
 			enemy[1].setY(259);
-			enemy[1].setType(2);
+			enemy[1].setEnemyType(2);
 			enemy[1].setImage();
 			enemy[2].setX(174);
 			enemy[2].setY(165);
-			enemy[2].setType(1);
+			enemy[2].setEnemyType(1);
 			enemy[2].setImage();
 			enemy[2].setLeftLimit(320);
 			enemy[2].setRightLimit(174);
 			enemy[3].setX(-180);
 			enemy[3].setY(128);
-			enemy[3].setType(2);
+			enemy[3].setEnemyType(2);
 			enemy[3].setImage();
 			enemy[4].setX(174);
 			enemy[4].setY(84);
-			enemy[4].setType(1);
+			enemy[4].setEnemyType(1);
 			enemy[4].setImage();
 			enemy[4].setLeftLimit(320);
 			enemy[4].setRightLimit(174);
 
 			enemy[5].setX(-300);
-			enemy[5].setType(1);
+			enemy[5].setEnemyType(1);
 			enemy[5].setLeftLimit(1320);
 			enemy[5].setRightLimit(-174);
 			plat.setX(50);
@@ -390,34 +390,34 @@ public class Game extends Canvas implements Runnable {
 			for (int o = 0; o < enemy.length; o++) {
 				enemy[o].setXshot(enemy[o].getX());
 				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getTipo() == 2) {
+				if (enemy[o].getEnemyType() == 2) {
 					enemy[o].setShoot(true);
 				}
 				else {
 					// Nothing to do
 				}
 			}
-			if (p.isDead()) {
-				p.setDoShot(true);
+			if (player.isDead()) {
+				player.setDoShot(true);
 			}
 			else {
 				// Nothing to do
 			}
-			p.setDead(false);
+			player.setDead(false);
 		}
 		else {
 			// Nothing to do
 		}
-		if ((p.getX() > 588 && p.getY() < 71 && p.isPlataform() && currentFase == 3) || p.isDead()) {
-			if (!p.isDead()) {
+		if ((player.getX() > 588 && player.getY() < 71 && player.isPlataform() && currentFase == 3) || player.isDead()) {
+			if (!player.isDead()) {
 				currentFase = 4;
 			}
 			else {
 				// Nothing to do
 			}
-			p.setY(300);
-			p.setX(500);
-			p.setDoShot(true);
+			player.setY(300);
+			player.setX(500);
+			player.setDoShot(true);
 			for (int r = 0; r < enemy.length; r++){
 				enemy[r].setDead(false);
 			}
@@ -426,29 +426,29 @@ public class Game extends Canvas implements Runnable {
 			}
 			enemy[0].setX(11);
 			enemy[0].setY(222);
-			enemy[0].setType(2);
+			enemy[0].setEnemyType(2);
 			enemy[0].setImage();
 			enemy[1].setX(11);
 			enemy[1].setY(135);
-			enemy[1].setType(2);
+			enemy[1].setEnemyType(2);
 			enemy[1].setImage();
 			enemy[2].setX(580);
 			enemy[2].setY(100);
-			enemy[2].setType(2);
+			enemy[2].setEnemyType(2);
 			enemy[2].setImage();
 			enemy[3].setX(570);
 			enemy[3].setY(219);
-			enemy[3].setType(2);
+			enemy[3].setEnemyType(2);
 			enemy[3].setImage();
 			enemy[4].setX(580);
 			enemy[4].setY(172);
-			enemy[4].setType(2);
+			enemy[4].setEnemyType(2);
 			enemy[4].setImage();
-			enemy[2].setDirecao(1);
-			enemy[3].setDirecao(1);
-			enemy[4].setDirecao(1);
+			enemy[2].setDirection(1);
+			enemy[3].setDirection(1);
+			enemy[4].setDirection(1);
 			enemy[5].setX(-580);
-			enemy[5].setType(2);
+			enemy[5].setEnemyType(2);
 			plat.setX(210);
 			plat.setY(344);
 			plat.setWidth(80);
@@ -485,25 +485,25 @@ public class Game extends Canvas implements Runnable {
 			for (int o = 0; o < enemy.length; o++) {
 				enemy[o].setXshot(enemy[o].getX());
 				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getTipo() == 2) {
+				if (enemy[o].getEnemyType() == 2) {
 					enemy[o].setShoot(true);
 				}
 				else {
 					// Nothing to do
 				}
 			}
-			if (p.isDead()) {
-				p.setDoShot(true);
+			if (player.isDead()) {
+				player.setDoShot(true);
 			}
 			else {
 				// Nothing to do
 			}
-			p.setDead(false);
+			player.setDead(false);
 		}
 		else {
 			// Nothing to do
 		}
-		if ((p.getX() < 40 && p.getY() < 94 && p.isPlataform() && currentFase == 4)) {
+		if ((player.getX() < 40 && player.getY() < 94 && player.isPlataform() && currentFase == 4)) {
 			introduction = 4;
 		}
 		else {
@@ -561,7 +561,7 @@ public class Game extends Canvas implements Runnable {
 		else {
 			// Nothing to do
 		}
-		p.tick();
+		player.tick();
 		for (int j = 0; j < enemy.length; j++){
 			if (!enemy[j].dead) {
 				enemy[j].tick();
@@ -570,24 +570,24 @@ public class Game extends Canvas implements Runnable {
 				// Nothing to do
 			}
 		}
-		if (collision(p, enemy)) {
+		if (collision(player, enemy)) {
 			if (currentFase == 1) {
 				init();
 			}
 			else {
-				p.setDead(true);
+				player.setDead(true);
 			}
 		}
 		else {
 			// Nothing to do
 		}
-		if (collisionShot(p, enemy) >= 0) {
-			enemy[collisionShot(p, enemy)].dead = true;
-			if (p.getDirecao() == 0) {
-				p.setXshot(1000);
+		if (collisionShot(player, enemy) >= 0) {
+			enemy[collisionShot(player, enemy)].dead = true;
+			if (player.getDirection() == 0) {
+				player.setXshot(1000);
 			}
-			else if (p.getDirecao() == 1) {
-				p.setXshot(-50);
+			else if (player.getDirection() == 1) {
+				player.setXshot(-50);
 			}
 			else {
 				// Nothing to do
@@ -596,24 +596,24 @@ public class Game extends Canvas implements Runnable {
 		else {
 			// Nothing to do
 		}
-		if (collisionShotPlayer(p, enemy)) {
+		if (collisionShotPlayer(player, enemy)) {
 			for (int i = 0; i < enemy.length; i++){
-				if (enemy[i].getDirecao() == 0) {
+				if (enemy[i].getDirection() == 0) {
 					enemy[i].setXshot(1000);
 				}
-				else if (enemy[i].getDirecao() == 1) {
+				else if (enemy[i].getDirection() == 1) {
 					enemy[i].setXshot(-50);
 				}
 				else {
 					// Nothing to do
 				}
 			}
-			p.setDead(true);
+			player.setDead(true);
 		}
 		else {
 			// Nothing to do
 		}
-		collisionItem(p, item);
+		collisionItem(player, item);
 		System.out.println("x:  " + Mouse.getX() + " y: " + Mouse.getY());
 	}
 
@@ -640,7 +640,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		g.fillRect(Mouse.getX() - 2, Mouse.getY() - 2, 4, 4);
-		p.render(g);
+		player.render(g);
 		for (int j = 0; j < enemy.length; j++){
 			if (!enemy[j].dead) {
 				enemy[j].render(g);
@@ -729,7 +729,7 @@ public class Game extends Canvas implements Runnable {
 	public boolean collision(Player a, Enemy[] b) {
 
 		for (int i = 0; i < b.length; i++){
-			if (b[i].getTipo() == 1) {
+			if (b[i].getEnemyType() == 1) {
 				if (!b[i].dead && a.getBounds().intersects(b[i].getBounds())) {
 					System.out.println("COLIDIU");
 					enemy[0].deathSound();
@@ -788,18 +788,18 @@ public class Game extends Canvas implements Runnable {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_RIGHT) {
-			p.setRight(true);
-			if (p.isDoShot()) {
-				p.setDirecao(0);
+			player.setRight(true);
+			if (player.isDoShot()) {
+				player.setDirection(0);
 			}
 			else {
 				// Nothing to do
 			}
 		}
 		else if (key == KeyEvent.VK_LEFT) {
-			p.setLeft(true);
-			if (p.isDoShot()) {
-				p.setDirecao(1);
+			player.setLeft(true);
+			if (player.isDoShot()) {
+				player.setDirection(1);
 			}
 			else {
 				// Nothing to do
@@ -809,7 +809,7 @@ public class Game extends Canvas implements Runnable {
 			// Nothing to do
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			p.setSaltar(true);
+			player.setJump(true);
 		}
 		else {
 			// Nothing to do
@@ -820,11 +820,11 @@ public class Game extends Canvas implements Runnable {
 			// Nothing to do
 		}
 		if (key == KeyEvent.VK_DOWN) {
-			if (p.isDoShot()) {
-				p.setXshot(p.getX());
-				p.setYshot(p.getY());
-				p.setShoot(true);
-				p.shotSound();
+			if (player.isDoShot()) {
+				player.setXshot(player.getX());
+				player.setYshot(player.getY());
+				player.setShoot(true);
+				player.shotSound();
 			}
 			else {
 				// Nothing to do
@@ -843,10 +843,10 @@ public class Game extends Canvas implements Runnable {
 			// Nothing to do
 		}
 		if (key == KeyEvent.VK_RIGHT) {
-			p.setRight(false);
+			player.setRight(false);
 		}
 		else if (key == KeyEvent.VK_LEFT) {
-			p.setLeft(false);
+			player.setLeft(false);
 		}
 		else {
 			// Nothing to do
