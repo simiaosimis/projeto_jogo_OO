@@ -1,3 +1,11 @@
+/* File: Person.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Person class responsible for generalize the attributes from dynamic entities.
+ * 
+ */
+
 package jogo;
 
 public class Person {

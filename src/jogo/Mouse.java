@@ -1,3 +1,11 @@
+/* File: Mouse.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Mouse class responsible for handle the mouse input.
+ * 
+ */
+
 package jogo;
 
 import java.awt.event.MouseEvent;

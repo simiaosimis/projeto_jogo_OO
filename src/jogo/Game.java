@@ -1,3 +1,11 @@
+/* File: Game.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Game class responsible for update and render the entities of the 
+ * game
+ */
+
 package jogo;
 
 import java.awt.Canvas;

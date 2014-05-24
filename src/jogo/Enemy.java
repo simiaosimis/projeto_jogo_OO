@@ -1,3 +1,11 @@
+/* File: Enemy.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Enemy class responsible for the updates and render the enemies of the game.
+ * 
+ */
+
 package jogo;
 
 import java.awt.Graphics;

@@ -1,3 +1,11 @@
+/* File: Player.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Player class responsible for update and render the player of the 
+ * game
+ */
+
 package jogo;
 
 import java.awt.Graphics;

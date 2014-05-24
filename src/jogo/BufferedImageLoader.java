@@ -1,3 +1,11 @@
+/* File: BufferedImageLoader.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the BufferedImageLoader class responsible for manage the image load of the game.
+ * 
+ */
+
 package jogo;
 
 import java.awt.image.BufferedImage;

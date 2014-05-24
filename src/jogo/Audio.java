@@ -1,3 +1,11 @@
+/* File: Audio.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Audio class responsible for manage the sound of the game.
+ * 
+ */
+
 package jogo;
 
 import java.io.File;

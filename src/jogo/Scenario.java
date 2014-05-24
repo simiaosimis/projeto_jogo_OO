@@ -1,3 +1,11 @@
+/* File: Scenario.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Scenario class responsible for store the level attributes.
+ * 
+ */
+
 package jogo;
 
 public class Scenario {

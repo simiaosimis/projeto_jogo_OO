@@ -1,3 +1,11 @@
+/* File: Item.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Item class responsible for the updates and render the items of the game.
+ * 
+ */
+
 package jogo;
 
 import java.awt.Graphics;

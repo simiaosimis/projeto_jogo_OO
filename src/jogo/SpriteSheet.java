@@ -1,3 +1,11 @@
+/* File: SpriteSheet.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the SpriteSheet class responsible for handle the spritesheet manipulation. 
+ * 
+ */
+
 package jogo;
 
 import java.awt.image.BufferedImage;

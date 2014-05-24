@@ -1,10 +1,18 @@
+/* File: Fase.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Fase class responsible for store the level entities.
+ * 
+ */
+
 package jogo;
 
 public class Fase {
 
 	private int height;
 	private int width;
-	private boolean complete;// atributo se passou da fase ou nao
+	private boolean complete;
 	private int qtd_platform;
 	public Enemy enemies[];
 	public Player player;

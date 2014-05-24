@@ -1,3 +1,11 @@
+/* File: Renderable.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Renderable class responsible for generalize the attributes from dynamic entities.
+ * 
+ */
+
 package jogo;
 
 public class Renderable {

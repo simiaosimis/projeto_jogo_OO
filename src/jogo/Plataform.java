@@ -1,3 +1,11 @@
+/* File: Plataform.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Plataform class responsible for store the attributes from platforms.
+ * 
+ */
+
 package jogo;
 
 public class Plataform {

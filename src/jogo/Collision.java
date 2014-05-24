@@ -1,3 +1,11 @@
+/* File: Collision.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Collision interface responsible generalize all the collisions.
+ * 
+ */
+
 package jogo;
 
 import java.awt.Rectangle;

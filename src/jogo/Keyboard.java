@@ -1,3 +1,11 @@
+/* File: Keyboard.java
+ * 
+ * Package: src/jogo
+ * 
+ * Description: This is the Keyboard class responsible for handle the keyboard input.
+ * 
+ */
+
 package jogo;
 
 import java.awt.event.KeyAdapter;
