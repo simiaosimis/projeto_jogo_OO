@@ -41,17 +41,17 @@ public class Game extends Canvas implements Runnable {
 
 	private Player player;
 	private Plataform floor = new Plataform(0, 412, WIDTH * SCALE);
-	private Plataform plat = new Plataform(300, 285, 100);
-	private Plataform plat2 = new Plataform(250, 375, 100);
-	private Plataform plat3 = new Plataform(0, 316, 195);
-	private Plataform plat4 = new Plataform(282, 143, 129);
-	private Plataform plat5 = new Plataform(265, 217, 162);
-	private Plataform plat6 = new Plataform(491, 252, 158);
-	private Plataform plat7 = new Plataform(0, 183, 210);
-	private Plataform plat8 = new Plataform(0, 72, 411);
-	private Plataform plat9 = new Plataform(457, 110, 160);
-	private Plataform plat10 = new Plataform(0, 0, 0);
-	private Plataform[] plats = { plat, plat2, plat3, plat4, plat5, plat6, plat7, plat8, plat9, plat10, floor };
+	private Plataform platform = new Plataform(300, 285, 100);
+	private Plataform platform2 = new Plataform(250, 375, 100);
+	private Plataform platform3 = new Plataform(0, 316, 195);
+	private Plataform platform4 = new Plataform(282, 143, 129);
+	private Plataform platform5 = new Plataform(265, 217, 162);
+	private Plataform platform6 = new Plataform(491, 252, 158);
+	private Plataform platform7 = new Plataform(0, 183, 210);
+	private Plataform platform8 = new Plataform(0, 72, 411);
+	private Plataform platform9 = new Plataform(457, 110, 160);
+	private Plataform platform10 = new Plataform(0, 0, 0);
+	private Plataform[] plats = { platform, platform2, platform3, platform4, platform5, platform6, platform7, platform8, platform9, platform10, floor };
 	private Enemy enemy1;
 	private Enemy enemy2;
 	private Enemy enemy3;
@@ -69,11 +69,13 @@ public class Game extends Canvas implements Runnable {
 	private int lastFase = 0;
 	BufferedImageLoader loader = new BufferedImageLoader();
 
+	// Plays the sound of the game.
 	public void backgroundSound() {
 		audio.setFileName("C:/Users/Simiao/Desktop/09 Dryad Of The Woods.wav");
 		audio.playSong();
 	}
 
+	// Loads the images from the game and Initializes the first level.
 	public void init() {
 		if (currentFase < 2) {
 			try {
@@ -118,14 +120,19 @@ public class Game extends Canvas implements Runnable {
 		else {
 			// Nothing to do
 		}
+		
+		// Initialize the player and sets the platforms.
 		player = new Player(500, 300, 68, 35, this);
 		player.setPlat(plats);
+		
+		// Start to listen input from use.
 		addKeyListener(new Keyboard(this));
 		Mouse mouse = new Mouse();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 	}
 
+	// Start the thread that runs the game.
 	private synchronized void start() {
 		if (running) {
 			return;
@@ -138,6 +145,7 @@ public class Game extends Canvas implements Runnable {
 		thread.start();
 	}
 
+	// Stop the thread that runs the game.
 	private synchronized void stop() {
 		if (!running) {
 			return;
@@ -154,6 +162,7 @@ public class Game extends Canvas implements Runnable {
 		System.exit(1);
 	}
 
+	// Main Game loop
 	public void run() {
 		init();
 		long lastTime = System.nanoTime();
@@ -164,7 +173,7 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		long timer = System.currentTimeMillis();
 		while (running) {
-			// o jogo acontece aqui
+			// The game is updated here.
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -175,44 +184,22 @@ public class Game extends Canvas implements Runnable {
 				delta--;
 			}
 			else {
-				// Nothing to do
+				// Nothing to do.
 			}
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				// System.out.println(updates + " ticks , frames " + frames);
 				updates = 0;
 				frames = 0;
 			}
 			else {
-				// Nothing to do
+				// Nothing to do.
 			}
 		}
 		stop();
 	}
 
-	/*
-	 * public boolean endDaFase(){
-	 * if(currentFase==1){
-	 * if(p.getX()<=0 && p.getY()<=25 && p.isPlataform())
-	 * return true;
-	 * }
-	 * else if(currentFase==2){
-	 * if(p.getX()<80 && p.getY()<100 && p.isPlataform())
-	 * return true;
-	 * }
-	 * else if(currentFase==3){
-	 * if(p.getX()<80 && p.getY()<100 && p.isPlataform())
-	 * return true;
-	 * }
-	 * else if(currentFase==4){
-	 * if(p.getX()<80 && p.getY()<100 && p.isPlataform())
-	 * return true;
-	 * }
-	 * return false;
-	 * }
-	 */
-
+	// Update all levels and entities of the game.
 	public void tick() {
 		if ((player.getX() < 30 && player.getY() < 26 && player.isPlataform() && currentFase == 1) || player.isDead()) {
 			if (!player.isDead()) {
@@ -255,36 +242,36 @@ public class Game extends Canvas implements Runnable {
 			enemy[4].setRightLimit(520);
 			enemy[5].setX(-200);
 			enemy[5].setEnemyType(2);
-			plat.setX(487);
-			plat.setY(369);
-			plat.setWidth(54);
-			plat2.setX(523);
-			plat2.setY(323);
-			plat2.setWidth(126);
-			plat3.setX(456);
-			plat3.setY(293);
-			plat3.setWidth(38);
-			plat4.setX(523);
-			plat4.setY(259);
-			plat4.setWidth(126);
-			plat5.setX(430);
-			plat5.setY(234);
-			plat5.setWidth(58);
-			plat6.setX(523);
-			plat6.setY(201);
-			plat6.setWidth(126);
-			plat7.setX(523);
-			plat7.setY(147);
-			plat7.setWidth(126);
-			plat8.setX(587);
-			plat8.setY(171);
-			plat8.setWidth(62);
-			plat9.setX(587);
-			plat9.setY(112);
-			plat9.setWidth(62);
-			plat10.setX(0);
-			plat10.setY(91);
-			plat10.setWidth(573);
+			platform.setX(487);
+			platform.setY(369);
+			platform.setWidth(54);
+			platform2.setX(523);
+			platform2.setY(323);
+			platform2.setWidth(126);
+			platform3.setX(456);
+			platform3.setY(293);
+			platform3.setWidth(38);
+			platform4.setX(523);
+			platform4.setY(259);
+			platform4.setWidth(126);
+			platform5.setX(430);
+			platform5.setY(234);
+			platform5.setWidth(58);
+			platform6.setX(523);
+			platform6.setY(201);
+			platform6.setWidth(126);
+			platform7.setX(523);
+			platform7.setY(147);
+			platform7.setWidth(126);
+			platform8.setX(587);
+			platform8.setY(171);
+			platform8.setWidth(62);
+			platform9.setX(587);
+			platform9.setY(112);
+			platform9.setWidth(62);
+			platform10.setX(0);
+			platform10.setY(91);
+			platform10.setWidth(573);
 			item[0] = new Item(530, 114, 30, 30, this);
 			item[1] = new Item(-530, 167, 30, 30, this);
 			item[2] = new Item(-530, 289, 30, 30, this);
@@ -354,36 +341,36 @@ public class Game extends Canvas implements Runnable {
 			enemy[5].setEnemyType(1);
 			enemy[5].setLeftLimit(1320);
 			enemy[5].setRightLimit(-174);
-			plat.setX(50);
-			plat.setY(360);
-			plat.setWidth(70);
-			plat2.setX(170);
-			plat2.setY(318);
-			plat2.setWidth(200);
-			plat3.setX(380);
-			plat3.setY(285);
-			plat3.setWidth(95);
-			plat4.setX(175);
-			plat4.setY(232);
-			plat4.setWidth(160);
-			plat5.setX(45);
-			plat5.setY(178);
-			plat5.setWidth(100);
-			plat6.setX(175);
-			plat6.setY(150);
-			plat6.setWidth(160);
-			plat7.setX(350);
-			plat7.setY(110);
-			plat7.setWidth(100);
-			plat8.setX(470);
-			plat8.setY(70);
-			plat8.setWidth(180);
-			plat9.setX(0);
-			plat9.setY(0);
-			plat9.setWidth(0);
-			plat10.setX(0);
-			plat10.setY(0);
-			plat10.setWidth(0);
+			platform.setX(50);
+			platform.setY(360);
+			platform.setWidth(70);
+			platform2.setX(170);
+			platform2.setY(318);
+			platform2.setWidth(200);
+			platform3.setX(380);
+			platform3.setY(285);
+			platform3.setWidth(95);
+			platform4.setX(175);
+			platform4.setY(232);
+			platform4.setWidth(160);
+			platform5.setX(45);
+			platform5.setY(178);
+			platform5.setWidth(100);
+			platform6.setX(175);
+			platform6.setY(150);
+			platform6.setWidth(160);
+			platform7.setX(350);
+			platform7.setY(110);
+			platform7.setWidth(100);
+			platform8.setX(470);
+			platform8.setY(70);
+			platform8.setWidth(180);
+			platform9.setX(0);
+			platform9.setY(0);
+			platform9.setWidth(0);
+			platform10.setX(0);
+			platform10.setY(0);
+			platform10.setWidth(0);
 			item[0] = new Item(256, 114, 30, 30, this);
 			item[1] = new Item(256, 197, 30, 30, this);
 			item[2] = new Item(405, 182, 30, 30, this);
@@ -449,36 +436,36 @@ public class Game extends Canvas implements Runnable {
 			enemy[4].setDirection(1);
 			enemy[5].setX(-580);
 			enemy[5].setEnemyType(2);
-			plat.setX(210);
-			plat.setY(344);
-			plat.setWidth(80);
-			plat2.setX(315);
-			plat2.setY(295);
-			plat2.setWidth(335);
-			plat3.setX(0);
-			plat3.setY(262);
-			plat3.setWidth(260);
-			plat4.setX(170);
-			plat4.setY(233);
-			plat4.setWidth(80);
-			plat5.setX(0);
-			plat5.setY(174);
-			plat5.setWidth(260);
-			plat6.setX(170);
-			plat6.setY(145);
-			plat6.setWidth(80);
-			plat7.setX(0);
-			plat7.setY(85);
-			plat7.setWidth(260);
-			plat8.setX(300);
-			plat8.setY(125);
-			plat8.setWidth(350);
-			plat9.setX(0);
-			plat9.setY(0);
-			plat9.setWidth(0);
-			plat10.setX(0);
-			plat10.setY(0);
-			plat10.setWidth(0);
+			platform.setX(210);
+			platform.setY(344);
+			platform.setWidth(80);
+			platform2.setX(315);
+			platform2.setY(295);
+			platform2.setWidth(335);
+			platform3.setX(0);
+			platform3.setY(262);
+			platform3.setWidth(260);
+			platform4.setX(170);
+			platform4.setY(233);
+			platform4.setWidth(80);
+			platform5.setX(0);
+			platform5.setY(174);
+			platform5.setWidth(260);
+			platform6.setX(170);
+			platform6.setY(145);
+			platform6.setWidth(80);
+			platform7.setX(0);
+			platform7.setY(85);
+			platform7.setWidth(260);
+			platform8.setX(300);
+			platform8.setY(125);
+			platform8.setWidth(350);
+			platform9.setX(0);
+			platform9.setY(0);
+			platform9.setWidth(0);
+			platform10.setX(0);
+			platform10.setY(0);
+			platform10.setWidth(0);
 			item[0] = new Item(220, 112, 30, 30, this);
 			item[1] = new Item(220, 200, 30, 30, this);
 			item[2] = new Item(405, 98, 30, 30, this);
