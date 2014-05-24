@@ -21,6 +21,7 @@ public class Player extends Renderable {
 	private int direction = 1;
 	private boolean dead = false;
 
+	// Constructor of Player class.
 	public Player(int x, int y, int height, int width, Game game) {
 		super(x, y, height, width, false, false, false);
 		this.game = game;
@@ -28,6 +29,7 @@ public class Player extends Renderable {
 		player = ss.grabImage(position, 1, 35, 68);
 	}
 
+	// Updates Player position.
 	public void tick() {
 		if (position < 3) {
 			position++;
@@ -40,29 +42,29 @@ public class Player extends Renderable {
 			x -= 4;
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (right) {
 			x += 4;
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 
 		if (x >= 590) {
 			x = 590;
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (x <= 0) {
 			x = 0;
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 
-		// Here we have a platform
+		// Here we have a platform check collision.
 		for (int i = 0; i < plat.length - 1; i++){
 			if ((x + width) > plat[i].getX() && x < (plat[i].getX() + plat[i].getWidth())
 					&& (y + height) >= plat[i].getY() && (y + height) <= (plat[i].getY() + 7)
@@ -75,7 +77,7 @@ public class Player extends Renderable {
 			}
 		}
 		
-		// Here we have a floor
+		// Here we have a floor.
 		if ((x + this.width) > plat[plat.length - 1].getX()
 				&& x < (plat[plat.length - 1].getX() + plat[plat.length - 1].getWidth())
 				&& (y + this.height) >= plat[plat.length - 1].getY()) {
@@ -89,7 +91,7 @@ public class Player extends Renderable {
 			game.applyGravity(this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 
 		if (this.jump && (plataform || floor)) {
@@ -99,12 +101,13 @@ public class Player extends Renderable {
 			i = 0;
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 	}
 
 	Audio audio = new Audio();
 
+	// Render the player.
 	public void render(Graphics g) {
 
 		g.drawImage(player, (int) x, (int) y, null);
@@ -114,6 +117,8 @@ public class Player extends Renderable {
 		else {
 			// Nothing to do
 		}
+		
+		// Update the shoot position if it is shooted by the player.
 		if (shoot) {
 			if (direction == 0) {
 				shoot(xshot += 3, yshot);
@@ -122,33 +127,37 @@ public class Player extends Renderable {
 				shoot(xshot -= 3, yshot);
 			}
 			else {
-				// Nothing to do
+				// Nothing to do.
 			}
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (xshot < 0) {
 			shoot = false;
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 	}
 
+	// Get the bounds of the player.
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, width, height);
 	}
 
+	// Get the bounds of the player's shoot.
 	public Rectangle getshotBounds() {
 		return new Rectangle((int) xshot, (int) yshot, 30, 30);
 	}
 
+	// Plays the shoot sound.
 	public void shotSound() {
 		audio.setFileName("C:/Users/Jota/Desktop/som de shot.wav");
 		audio.playSong();
 	}
 
+	// Render the player's shoot.
 	public void shoot(float x, float y) {
 		BufferStrategy bs = game.getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
