@@ -606,8 +606,10 @@ public class Game extends Canvas implements Runnable {
 
 	int o = 0;
 
+	// Draw all the entities in the screen.
 	public void render() {
 
+		// Starts a triple buffer.
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
@@ -618,6 +620,8 @@ public class Game extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		
+		// Render the items.
 		for (int j = 0; j < item.length; j++){
 			if (rendersitem[j]) {
 				item[j].render(g);
@@ -627,21 +631,27 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		g.fillRect(Mouse.getX() - 2, Mouse.getY() - 2, 4, 4);
+		
+		// Render the player.
 		player.render(g);
+		
+		// Render the enemies.
 		for (int j = 0; j < enemy.length; j++){
 			if (!enemy[j].dead) {
 				enemy[j].render(g);
 			}
 			else {
-				// Nothing to do
+				// Nothing to do.
 			}
 		}
 		if (currentFase == 0) {
 			g.drawImage(menu, 0, 0, getWidth(), getHeight(), this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
+		
+		// PLays the introduction in the beginning of the game.
 		if (introduction == 1) {
 			g.drawImage(intro1, 0, 0, getWidth(), getHeight(), this);
 			o++;
@@ -649,7 +659,7 @@ public class Game extends Canvas implements Runnable {
 				g.drawImage(intro2, 0, 0, getWidth(), getHeight(), this);
 			}
 			else {
-				// Nothing to do
+				// Nothing to do.
 			}
 			if (o >= 60) {
 				g.drawImage(intro3, 0, 0, getWidth(), getHeight(), this);
@@ -668,40 +678,42 @@ public class Game extends Canvas implements Runnable {
 			// Nothing to do
 		}
 
+		// Draw the arrow, that symbolizes the end of a level.
 		if (currentFase == 1) {
 			g.drawImage(leftArrow, 0, 25, 43, 46, this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (currentFase == 2) {
 			g.drawImage(leftArrow, 0, 47, 43, 46, this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (currentFase == 3) {
 			g.drawImage(rigthArrow, 588, 25, 43, 46, this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (currentFase == 4) {
 			g.drawImage(raquel, 0, 18, 38, 68, this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		if (introduction == 4) {
 			g.drawImage(end, 0, 0, getWidth(), getHeight(), this);
 		}
 		else {
-			// Nothing to do
+			// Nothing to do.
 		}
 		g.dispose();
 		bs.show();
 	}
 
+	// Applies the gravity in the player.
 	public void applyGravity(Player player) {
 
 		float time = 0.18f;
@@ -713,6 +725,7 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
+	// Check if the player is colliding with a enemy.
 	public boolean collision(Player a, Enemy[] b) {
 
 		for (int i = 0; i < b.length; i++){
@@ -733,6 +746,7 @@ public class Game extends Canvas implements Runnable {
 		return false;
 	}
 
+	// Check if the player is colliding with a item.
 	public boolean collisionItem(Player a, Item[] b) {
 		for (int i = 0; i < b.length; i++){
 			if (a.getBounds().intersects(b[i].getBounds())) {
@@ -746,6 +760,7 @@ public class Game extends Canvas implements Runnable {
 		return false;
 	}
 
+	// Check if the player's shoot is colliding with a enemy.
 	public int collisionShot(Player a, Enemy[] b) {
 		for (int i = 0; i < b.length; i++){
 			if (a.getshotBounds().intersects(b[i].getBounds())) {
@@ -759,6 +774,7 @@ public class Game extends Canvas implements Runnable {
 		return -1;
 	}
 
+	// Check if the enemy's shoot is colliding with the player.
 	public boolean collisionShotPlayer(Player a, Enemy[] b) {
 		for (int i = 0; i < b.length; i++) {
 			if (a.getBounds().intersects(b[i].getshotBounds())) {
@@ -772,6 +788,7 @@ public class Game extends Canvas implements Runnable {
 		return false;
 	}
 
+	// Handle the keyboard events.
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_RIGHT) {
@@ -822,6 +839,7 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	// Handle the keyboard events.
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_SPACE) {
@@ -847,6 +865,7 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
+		// Initializes the window of the game
 		JFrame frame = new JFrame(game.TITLE);
 		frame.add(game);
 		frame.pack();
@@ -854,6 +873,8 @@ public class Game extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		// Starts the game and plays it sound.
 		game.start();
 		game.backgroundSound();
 	}
