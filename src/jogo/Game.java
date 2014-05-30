@@ -34,20 +34,18 @@ public class Game extends Canvas implements Runnable {
 	private int introduction = 0;
 
 	private Player player;
-	private Plataform floor = new Plataform(0, 412, WIDTH * SCALE);
-	private Plataform platform = new Plataform(300, 285, 100);
-	private Plataform platform2 = new Plataform(250, 375, 100);
-	private Plataform platform3 = new Plataform(0, 316, 195);
-	private Plataform platform4 = new Plataform(282, 143, 129);
-	private Plataform platform5 = new Plataform(265, 217, 162);
-	private Plataform platform6 = new Plataform(491, 252, 158);
-	private Plataform platform7 = new Plataform(0, 183, 210);
-	private Plataform platform8 = new Plataform(0, 72, 411);
-	private Plataform platform9 = new Plataform(457, 110, 160);
-	private Plataform platform10 = new Plataform(0, 0, 0);
-	private Plataform[] plats = { platform, platform2, platform3, platform4,
-			platform5, platform6, platform7, platform8, platform9, platform10,
-			floor };
+	private Plataform floor;
+	private Plataform platform;
+	private Plataform platform2; 
+	private Plataform platform3;
+	private Plataform platform4;
+	private Plataform platform5;
+	private Plataform platform6;
+	private Plataform platform7;
+	private Plataform platform8;
+	private Plataform platform9;
+	private Plataform platform10;
+	
 	private Enemy enemy1;
 	private Enemy enemy2;
 	private Enemy enemy3;
@@ -86,16 +84,12 @@ public class Game extends Canvas implements Runnable {
 		} else {
 			// Nothing to do.
 		}
-
+		
+		Plataform[] platforms = initializePlatforms();
 		// Initialize the player and sets the platforms.
 		player = new Player(500, 300, 68, 35, this);
-		player.setPlat(plats);
-
-		// Start to listen input from user.
-		addKeyListener(new Keyboard(this));
-		Mouse mouse = new Mouse();
-		addMouseListener(mouse);
-		addMouseMotionListener(mouse);
+		player.setPlat(platforms);
+		InitializeEvents();
 	}
 
 	// Main Game loop
@@ -832,6 +826,32 @@ public class Game extends Canvas implements Runnable {
 		item[0] = new Item(-530, 114, 30, 30, this);
 		item[1] = new Item(-530, 167, 30, 30, this);
 		item[2] = new Item(-530, 500, 30, 30, this);
+	}
+	
+	public Plataform[] initializePlatforms(){
+		floor = new Plataform(0, 412, WIDTH * SCALE);
+		platform = new Plataform(300, 285, 100);
+		platform2 = new Plataform(250, 375, 100);
+		platform3 = new Plataform(0, 316, 195);
+		platform4 = new Plataform(282, 143, 129);
+		platform5 = new Plataform(265, 217, 162);
+		platform6 = new Plataform(491, 252, 158);
+		platform7 = new Plataform(0, 183, 210);
+		platform8 = new Plataform(0, 72, 411);
+		platform9 = new Plataform(457, 110, 160);
+		platform10 = new Plataform(0, 0, 0);
+		Plataform[] plats = { platform, platform2, platform3, platform4,
+				platform5, platform6, platform7, platform8, platform9, platform10,
+				floor };
+		return plats;
+	}
+	
+	// Start to listen input from user.
+	public void InitializeEvents(){
+		addKeyListener(new Keyboard(this));
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 	
 	public BufferedImage getSpriteSheet() {
