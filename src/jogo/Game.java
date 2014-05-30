@@ -91,42 +91,7 @@ public class Game extends Canvas implements Runnable {
 		player.setPlat(platforms);
 		InitializeEvents();
 	}
-
-	// Main Game loop
-	public void run() {
-		init();
-		long lastTime = System.nanoTime();
-		final double amountOfTickets = 60.0;
-		double ns = 1000000000 / amountOfTickets;
-		double delta = 0;
-		int updates = 0;
-		int frames = 0;
-		long timer = System.currentTimeMillis();
-		while (running) {
-			// The game is updated here.
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			if (delta > 1) {
-				tick();
-				render();
-				updates++;
-				delta--;
-			} else {
-				// Nothing to do.
-			}
-			frames++;
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				updates = 0;
-				frames = 0;
-			} else {
-				// Nothing to do.
-			}
-		}
-		stop();
-	}
-
+	
 	// Update all levels and entities of the game.
 	public void tick() {
 		if ((player.getX() < 30 && player.getY() < 26 && player.isPlataform() && currentFase == 1)
@@ -136,91 +101,16 @@ public class Game extends Canvas implements Runnable {
 			} else {
 				// Nothing to do.
 			}
-			System.out.println(currentFase);
-			player.setY(300);
-			player.setX(50);
-			player.setDoShot(true);
-			for (int r = 0; r < enemy.length; r++) {
-				enemy[r].setDead(false);
-			}
-			for (int k = 0; k < 3; k++) {
-				rendersitem[k] = true;
-			}
-			enemy[0].setX(181);
-			enemy[0].setY(329);
-			enemy[0].setEnemyType(2);
-			enemy[0].setImage();
-			enemy[1].setX(181);
-			enemy[1].setY(263);
-			enemy[1].setEnemyType(2);
-			enemy[1].setImage();
-			enemy[2].setX(181);
-			enemy[2].setY(195);
-			enemy[2].setEnemyType(2);
-			enemy[2].setImage();
-			enemy[3].setX(181);
-			enemy[3].setY(128);
-			enemy[3].setEnemyType(2);
-			enemy[3].setImage();
-			enemy[4].setX(520);
-			enemy[4].setY(258);
-			enemy[4].setEnemyType(1);
-			enemy[4].setImage();
-			enemy[4].setLeftLimit(25);
-			enemy[4].setRightLimit(520);
-			enemy[5].setX(-200);
-			enemy[5].setEnemyType(2);
-			platform.setX(487);
-			platform.setY(369);
-			platform.setWidth(54);
-			platform2.setX(523);
-			platform2.setY(323);
-			platform2.setWidth(126);
-			platform3.setX(456);
-			platform3.setY(293);
-			platform3.setWidth(38);
-			platform4.setX(523);
-			platform4.setY(259);
-			platform4.setWidth(126);
-			platform5.setX(430);
-			platform5.setY(234);
-			platform5.setWidth(58);
-			platform6.setX(523);
-			platform6.setY(201);
-			platform6.setWidth(126);
-			platform7.setX(523);
-			platform7.setY(147);
-			platform7.setWidth(126);
-			platform8.setX(587);
-			platform8.setY(171);
-			platform8.setWidth(62);
-			platform9.setX(587);
-			platform9.setY(112);
-			platform9.setWidth(62);
-			platform10.setX(0);
-			platform10.setY(91);
-			platform10.setWidth(573);
-			item[0] = new Item(530, 114, 30, 30, this);
-			item[1] = new Item(-530, 167, 30, 30, this);
-			item[2] = new Item(-530, 289, 30, 30, this);
-			for (int o = 0; o < enemy.length; o++) {
-				enemy[o].setXshot(enemy[o].getX());
-				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getEnemyType() == 2) {
-					enemy[o].setShoot(true);
-				} else {
-					// Nothing to do.
-				}
-				if (player.isDead()) {
-					player.setDoShot(true);
-				} else {
-					// Nothing to do.
-				}
-				player.setDead(false);
-			}
+			setPlayerLevel2();
+			resetLevel();
+			setEnemiesLevel2();
+			setPlatformsLevel2();
+			setItemsLevel2();
+			updateLevelShot();	
 		} else {
 			// Nothing to do.
 		}
+		
 		if ((player.getX() < 50 && player.getY() < 50 && player.isPlataform() && currentFase == 2)
 				|| player.isDead()) {
 			if (!player.isDead()) {
@@ -228,95 +118,16 @@ public class Game extends Canvas implements Runnable {
 			} else {
 				// Nothing to do.
 			}
-			player.setY(300);
-			player.setX(500);
-			player.setDoShot(true);
-			for (int r = 0; r < enemy.length; r++) {
-				enemy[r].setDead(false);
-			}
-			for (int k = 0; k < 3; k++) {
-				rendersitem[k] = true;
-			}
-			enemy[0].setX(60);
-			enemy[0].setY(151);
-			enemy[0].setEnemyType(2);
-			enemy[0].setImage();
-			enemy[1].setX(60);
-			enemy[1].setY(259);
-			enemy[1].setEnemyType(2);
-			enemy[1].setImage();
-			enemy[2].setX(174);
-			enemy[2].setY(165);
-			enemy[2].setEnemyType(1);
-			enemy[2].setImage();
-			enemy[2].setLeftLimit(320);
-			enemy[2].setRightLimit(174);
-			enemy[3].setX(-180);
-			enemy[3].setY(128);
-			enemy[3].setEnemyType(2);
-			enemy[3].setImage();
-			enemy[4].setX(174);
-			enemy[4].setY(84);
-			enemy[4].setEnemyType(1);
-			enemy[4].setImage();
-			enemy[4].setLeftLimit(320);
-			enemy[4].setRightLimit(174);
-
-			enemy[5].setX(-300);
-			enemy[5].setEnemyType(1);
-			enemy[5].setLeftLimit(1320);
-			enemy[5].setRightLimit(-174);
-			platform.setX(50);
-			platform.setY(360);
-			platform.setWidth(70);
-			platform2.setX(170);
-			platform2.setY(318);
-			platform2.setWidth(200);
-			platform3.setX(380);
-			platform3.setY(285);
-			platform3.setWidth(95);
-			platform4.setX(175);
-			platform4.setY(232);
-			platform4.setWidth(160);
-			platform5.setX(45);
-			platform5.setY(178);
-			platform5.setWidth(100);
-			platform6.setX(175);
-			platform6.setY(150);
-			platform6.setWidth(160);
-			platform7.setX(350);
-			platform7.setY(110);
-			platform7.setWidth(100);
-			platform8.setX(470);
-			platform8.setY(70);
-			platform8.setWidth(180);
-			platform9.setX(0);
-			platform9.setY(0);
-			platform9.setWidth(0);
-			platform10.setX(0);
-			platform10.setY(0);
-			platform10.setWidth(0);
-			item[0] = new Item(256, 114, 30, 30, this);
-			item[1] = new Item(256, 197, 30, 30, this);
-			item[2] = new Item(405, 182, 30, 30, this);
-			for (int o = 0; o < enemy.length; o++) {
-				enemy[o].setXshot(enemy[o].getX());
-				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getEnemyType() == 2) {
-					enemy[o].setShoot(true);
-				} else {
-					// Nothing to do.
-				}
-			}
-			if (player.isDead()) {
-				player.setDoShot(true);
-			} else {
-				// Nothing to do.
-			}
-			player.setDead(false);
+			resetLevel();
+			setPlayerLevel3();
+			setEnemiesLevel3();
+			setPlatformsLevel3();
+			setItemsLevel3();
+			updateLevelShot();
 		} else {
 			// Nothing to do.
 		}
+		
 		if ((player.getX() > 588 && player.getY() < 71 && player.isPlataform() && currentFase == 3)
 				|| player.isDead()) {
 			if (!player.isDead()) {
@@ -324,91 +135,16 @@ public class Game extends Canvas implements Runnable {
 			} else {
 				// Nothing to do.
 			}
-			player.setY(300);
-			player.setX(500);
-			player.setDoShot(true);
-			for (int r = 0; r < enemy.length; r++) {
-				enemy[r].setDead(false);
-			}
-			for (int k = 0; k < 3; k++) {
-				rendersitem[k] = true;
-			}
-			enemy[0].setX(11);
-			enemy[0].setY(222);
-			enemy[0].setEnemyType(2);
-			enemy[0].setImage();
-			enemy[1].setX(11);
-			enemy[1].setY(135);
-			enemy[1].setEnemyType(2);
-			enemy[1].setImage();
-			enemy[2].setX(580);
-			enemy[2].setY(100);
-			enemy[2].setEnemyType(2);
-			enemy[2].setImage();
-			enemy[3].setX(570);
-			enemy[3].setY(219);
-			enemy[3].setEnemyType(2);
-			enemy[3].setImage();
-			enemy[4].setX(580);
-			enemy[4].setY(172);
-			enemy[4].setEnemyType(2);
-			enemy[4].setImage();
-			enemy[2].setDirection(1);
-			enemy[3].setDirection(1);
-			enemy[4].setDirection(1);
-			enemy[5].setX(-580);
-			enemy[5].setEnemyType(2);
-			platform.setX(210);
-			platform.setY(344);
-			platform.setWidth(80);
-			platform2.setX(315);
-			platform2.setY(295);
-			platform2.setWidth(335);
-			platform3.setX(0);
-			platform3.setY(262);
-			platform3.setWidth(260);
-			platform4.setX(170);
-			platform4.setY(233);
-			platform4.setWidth(80);
-			platform5.setX(0);
-			platform5.setY(174);
-			platform5.setWidth(260);
-			platform6.setX(170);
-			platform6.setY(145);
-			platform6.setWidth(80);
-			platform7.setX(0);
-			platform7.setY(85);
-			platform7.setWidth(260);
-			platform8.setX(300);
-			platform8.setY(125);
-			platform8.setWidth(350);
-			platform9.setX(0);
-			platform9.setY(0);
-			platform9.setWidth(0);
-			platform10.setX(0);
-			platform10.setY(0);
-			platform10.setWidth(0);
-			item[0] = new Item(220, 112, 30, 30, this);
-			item[1] = new Item(220, 200, 30, 30, this);
-			item[2] = new Item(405, 98, 30, 30, this);
-			for (int o = 0; o < enemy.length; o++) {
-				enemy[o].setXshot(enemy[o].getX());
-				enemy[o].setYshot(enemy[o].getY());
-				if (enemy[o].getEnemyType() == 2) {
-					enemy[o].setShoot(true);
-				} else {
-					// Nothing to do.
-				}
-			}
-			if (player.isDead()) {
-				player.setDoShot(true);
-			} else {
-				// Nothing to do.
-			}
-			player.setDead(false);
+			setPlayerLevel4();
+			resetLevel();
+			setEnemiesLevel4();
+			setPlatformsLevel4();
+			setItemsLevel4();
+			updateLevelShot();
 		} else {
 			// Nothing to do.
 		}
+		
 		if ((player.getX() < 40 && player.getY() < 94 && player.isPlataform() && currentFase == 4)) {
 			introduction = 4;
 		} else {
@@ -799,6 +535,42 @@ public class Game extends Canvas implements Runnable {
 		game.backgroundSound();
 	}
 	
+	// Main Game loop
+	public void run() {
+		init();
+		long lastTime = System.nanoTime();
+		final double amountOfTickets = 60.0;
+		double ns = 1000000000 / amountOfTickets;
+		double delta = 0;
+		int updates = 0;
+		int frames = 0;
+		long timer = System.currentTimeMillis();
+		while (running) {
+			// The game is updated here.
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			if (delta > 1) {
+				tick();
+				render();
+				updates++;
+				delta--;
+			} else {
+				// Nothing to do.
+			}
+			frames++;
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				updates = 0;
+				frames = 0;
+			} else {
+				// Nothing to do.
+			}
+		}
+		stop();
+	}
+
+	
 	public void resetLevel(){
 		for (int r = 0; r < enemy.length; r++)
 			enemy[r].setDead(false);
@@ -806,6 +578,42 @@ public class Game extends Canvas implements Runnable {
 			rendersitem[k] = true;
 	}
 
+	public void updateLevelShot(){
+		for (int o = 0; o < enemy.length; o++) {
+			enemy[o].setXshot(enemy[o].getX());
+			enemy[o].setYshot(enemy[o].getY());
+			if (enemy[o].getEnemyType() == 2) {
+				enemy[o].setShoot(true);
+			} else {
+				// Nothing to do.
+			}
+			if (player.isDead()) {
+				player.setDoShot(true);
+			} else {
+				// Nothing to do.
+			}
+			player.setDead(false);
+		}
+	}
+	
+	public void setPlayerLevel2(){
+		player.setY(300);
+		player.setX(50);
+		player.setDoShot(true);
+	} 
+	
+	public void setPlayerLevel3(){
+		player.setY(300);
+		player.setX(500);
+		player.setDoShot(true);
+	} 
+	
+	public void setPlayerLevel4(){
+		player.setY(300);
+		player.setX(500);
+		player.setDoShot(true);
+	}
+	
 	public void setEnemiesLevel1(){
 		enemy[0] = new Enemy(0, 256, 60, 35, this, 1);
 		enemy[0].setLeftLimit(480);
@@ -822,10 +630,114 @@ public class Game extends Canvas implements Runnable {
 		enemy[5].setLeftLimit(470);
 	}
 	
+	public void setEnemiesLevel2(){
+		enemy[0].setX(181);
+		enemy[0].setY(329);
+		enemy[0].setEnemyType(2);
+		enemy[0].setImage();
+		enemy[1].setX(181);
+		enemy[1].setY(263);
+		enemy[1].setEnemyType(2);
+		enemy[1].setImage();
+		enemy[2].setX(181);
+		enemy[2].setY(195);
+		enemy[2].setEnemyType(2);
+		enemy[2].setImage();
+		enemy[3].setX(181);
+		enemy[3].setY(128);
+		enemy[3].setEnemyType(2);
+		enemy[3].setImage();
+		enemy[4].setX(520);
+		enemy[4].setY(258);
+		enemy[4].setEnemyType(1);
+		enemy[4].setImage();
+		enemy[4].setLeftLimit(25);
+		enemy[4].setRightLimit(520);
+		enemy[5].setX(-200);
+		enemy[5].setEnemyType(2);
+	}
+	
+	public void setEnemiesLevel3(){
+		enemy[0].setX(60);
+		enemy[0].setY(151);
+		enemy[0].setEnemyType(2);
+		enemy[0].setImage();
+		enemy[1].setX(60);
+		enemy[1].setY(259);
+		enemy[1].setEnemyType(2);
+		enemy[1].setImage();
+		enemy[2].setX(174);
+		enemy[2].setY(165);
+		enemy[2].setEnemyType(1);
+		enemy[2].setImage();
+		enemy[2].setLeftLimit(320);
+		enemy[2].setRightLimit(174);
+		enemy[3].setX(-180);
+		enemy[3].setY(128);
+		enemy[3].setEnemyType(2);
+		enemy[3].setImage();
+		enemy[4].setX(174);
+		enemy[4].setY(84);
+		enemy[4].setEnemyType(1);
+		enemy[4].setImage();
+		enemy[4].setLeftLimit(320);
+		enemy[4].setRightLimit(174);
+		enemy[5].setX(-300);
+		enemy[5].setEnemyType(1);
+		enemy[5].setLeftLimit(1320);
+		enemy[5].setRightLimit(-174);
+	}
+	
+	public void setEnemiesLevel4(){
+		enemy[0].setX(11);
+		enemy[0].setY(222);
+		enemy[0].setEnemyType(2);
+		enemy[0].setImage();
+		enemy[1].setX(11);
+		enemy[1].setY(135);
+		enemy[1].setEnemyType(2);
+		enemy[1].setImage();
+		enemy[2].setX(580);
+		enemy[2].setY(100);
+		enemy[2].setEnemyType(2);
+		enemy[2].setImage();
+		enemy[3].setX(570);
+		enemy[3].setY(219);
+		enemy[3].setEnemyType(2);
+		enemy[3].setImage();
+		enemy[4].setX(580);
+		enemy[4].setY(172);
+		enemy[4].setEnemyType(2);
+		enemy[4].setImage();
+		enemy[2].setDirection(1);
+		enemy[3].setDirection(1);
+		enemy[4].setDirection(1);
+		enemy[5].setX(-580);
+		enemy[5].setEnemyType(2);
+	}
+	
 	public void setItemsLevel1(){
 		item[0] = new Item(-530, 114, 30, 30, this);
 		item[1] = new Item(-530, 167, 30, 30, this);
 		item[2] = new Item(-530, 500, 30, 30, this);
+	}
+	
+	public void setItemsLevel2(){
+		item[0] = new Item(530, 114, 30, 30, this);
+		item[1] = new Item(-530, 167, 30, 30, this);
+		item[2] = new Item(-530, 289, 30, 30, this);
+	}
+	
+	public void setItemsLevel3(){
+		item[0] = new Item(256, 114, 30, 30, this);
+		item[1] = new Item(256, 197, 30, 30, this);
+		item[2] = new Item(405, 182, 30, 30, this);
+	}
+	
+	public void setItemsLevel4(){
+		item[0] = new Item(220, 112, 30, 30, this);
+		item[1] = new Item(220, 200, 30, 30, this);
+		item[2] = new Item(405, 98, 30, 30, this);
 	}
 	
 	public Plataform[] initializePlatforms(){
@@ -844,6 +756,105 @@ public class Game extends Canvas implements Runnable {
 				platform5, platform6, platform7, platform8, platform9, platform10,
 				floor };
 		return plats;
+	}
+	
+	public void setPlatformsLevel2(){
+		platform.setX(487);
+		platform.setY(369);
+		platform.setWidth(54);
+		platform2.setX(523);
+		platform2.setY(323);
+		platform2.setWidth(126);
+		platform3.setX(456);
+		platform3.setY(293);
+		platform3.setWidth(38);
+		platform4.setX(523);
+		platform4.setY(259);
+		platform4.setWidth(126);
+		platform5.setX(430);
+		platform5.setY(234);
+		platform5.setWidth(58);
+		platform6.setX(523);
+		platform6.setY(201);
+		platform6.setWidth(126);
+		platform7.setX(523);
+		platform7.setY(147);
+		platform7.setWidth(126);
+		platform8.setX(587);
+		platform8.setY(171);
+		platform8.setWidth(62);
+		platform9.setX(587);
+		platform9.setY(112);
+		platform9.setWidth(62);
+		platform10.setX(0);
+		platform10.setY(91);
+		platform10.setWidth(573);
+	}
+	
+	public void setPlatformsLevel3(){
+		platform.setX(50);
+		platform.setY(360);
+		platform.setWidth(70);
+		platform2.setX(170);
+		platform2.setY(318);
+		platform2.setWidth(200);
+		platform3.setX(380);
+		platform3.setY(285);
+		platform3.setWidth(95);
+		platform4.setX(175);
+		platform4.setY(232);
+		platform4.setWidth(160);
+		platform5.setX(45);
+		platform5.setY(178);
+		platform5.setWidth(100);
+		platform6.setX(175);
+		platform6.setY(150);
+		platform6.setWidth(160);
+		platform7.setX(350);
+		platform7.setY(110);
+		platform7.setWidth(100);
+		platform8.setX(470);
+		platform8.setY(70);
+		platform8.setWidth(180);
+		platform9.setX(0);
+		platform9.setY(0);
+		platform9.setWidth(0);
+		platform10.setX(0);
+		platform10.setY(0);
+		platform10.setWidth(0);
+	}
+	
+	public void setPlatformsLevel4(){
+		platform.setX(210);
+		platform.setY(344);
+		platform.setWidth(80);
+		platform2.setX(315);
+		platform2.setY(295);
+		platform2.setWidth(335);
+		platform3.setX(0);
+		platform3.setY(262);
+		platform3.setWidth(260);
+		platform4.setX(170);
+		platform4.setY(233);
+		platform4.setWidth(80);
+		platform5.setX(0);
+		platform5.setY(174);
+		platform5.setWidth(260);
+		platform6.setX(170);
+		platform6.setY(145);
+		platform6.setWidth(80);
+		platform7.setX(0);
+		platform7.setY(85);
+		platform7.setWidth(260);
+		platform8.setX(300);
+		platform8.setY(125);
+		platform8.setWidth(350);
+		platform9.setX(0);
+		platform9.setY(0);
+		platform9.setWidth(0);
+		platform10.setX(0);
+		platform10.setY(0);
+		platform10.setWidth(0);
 	}
 	
 	// Start to listen input from user.
