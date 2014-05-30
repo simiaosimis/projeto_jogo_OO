@@ -31,21 +31,6 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private Thread thread;
 
-	private BufferedImage image = null;
-	private BufferedImage imageitem = null;
-	private BufferedImage spriteSheet = null;
-	private BufferedImage enemyImage = null;
-	private BufferedImage enemyImage2 = null;
-	private BufferedImage menu = null;
-	private BufferedImage shot = null;
-	private BufferedImage intro1;
-	private BufferedImage intro2;
-	private BufferedImage intro3;
-	private BufferedImage intro[] = { intro1, intro2, intro3 };
-	private BufferedImage leftArrow;
-	private BufferedImage rigthArrow;
-	private BufferedImage raquel;
-	private BufferedImage end;
 	private int introduction = 0;
 
 	private Player player;
@@ -81,25 +66,6 @@ public class Game extends Canvas implements Runnable {
 	BufferedImageLoader loader = new BufferedImageLoader();
 	ArrayList<BufferedImage> gameImages;
 
-	// Plays the sound of the game.
-	public void backgroundSound() {
-		audio.setFileName("C:/Users/Simiao/Desktop/09 Dryad Of The Woods.wav");
-		audio.playSong();
-	}
-
-	public ArrayList<BufferedImage> loadImages(String[] paths) throws IOException{
-		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-		
-		for(int i=0; i<paths.length; i++){
-			boolean added = images.add(loader.loadImage("/jogo/" + paths[i] + ".png"));
-			if(added){
-				System.out.println("/jogo/" + paths[i] + ".png");
-			}
-		}
-		
-		return images;
-	}
-
 	// Loads the images from the game and Initializes the first level.
 	public void init() {
 		if (currentFase < 2) {
@@ -113,26 +79,10 @@ public class Game extends Canvas implements Runnable {
 				e.printStackTrace();
 			}
 						
-			enemy[0] = new Enemy(0, 256, 60, 35, this, 1);
-			enemy[0].setLeftLimit(480);
-			enemy[1] = new Enemy(0, 116, 60, 35, this, 1);
-			enemy[1].setLeftLimit(470);
-			enemy[2] = new Enemy(269, 150, 60, 35, this, 1);
-			enemy[2].setLeftLimit(250);
-			enemy[2].setRightLimit(269);
-			enemy[3] = new Enemy(-100, 116, 60, 35, this, 2);
-			enemy[3].setLeftLimit(470);
-			enemy[4] = new Enemy(-100, 256, 60, 35, this, 2);
-			enemy[4].setLeftLimit(480);
-			enemy[5] = new Enemy(-100, 116, 60, 35, this, 2);
-			enemy[5].setLeftLimit(470);
-			item[0] = new Item(-530, 114, 30, 30, this);
-			item[1] = new Item(-530, 167, 30, 30, this);
-			item[2] = new Item(-530, 500, 30, 30, this);
-			for (int r = 0; r < enemy.length; r++)
-				enemy[r].setDead(false);
-			for (int k = 0; k < 3; k++)
-				rendersitem[k] = true;
+			setEnemiesLevel1();
+			setItemsLevel1();
+			resetLevel();
+			
 		} else {
 			// Nothing to do.
 		}
@@ -146,34 +96,6 @@ public class Game extends Canvas implements Runnable {
 		Mouse mouse = new Mouse();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-	}
-
-	// Start the thread that runs the game.
-	private synchronized void start() {
-		if (running) {
-			return;
-		} else {
-			// Nothing to do.
-		}
-		running = true;
-		thread = new Thread(this);
-		thread.start();
-	}
-
-	// Stop the thread that runs the game.
-	private synchronized void stop() {
-		if (!running) {
-			return;
-		} else {
-			// Nothing to do.
-		}
-		running = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.exit(1);
 	}
 
 	// Main Game loop
@@ -502,7 +424,8 @@ public class Game extends Canvas implements Runnable {
 			if (currentFase == 2) {
 				lastFase = 2;
 				try {
-					image = loader.loadImage("/jogo/Fase 2.png");
+					BufferedImage image = loader.loadImage("/jogo/Fase 2.png");
+					gameImages.set(2, image);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -512,7 +435,8 @@ public class Game extends Canvas implements Runnable {
 			if (currentFase == 3) {
 				lastFase = 3;
 				try {
-					image = loader.loadImage("/jogo/Fase 3.png");
+					BufferedImage image = loader.loadImage("/jogo/Fase 3.png");
+					gameImages.set(2, image);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -522,7 +446,8 @@ public class Game extends Canvas implements Runnable {
 			if (currentFase == 4) {
 				lastFase = 4;
 				try {
-					image = loader.loadImage("/jogo/Fase 4.png");
+					BufferedImage image = loader.loadImage("/jogo/Fase 4.png");
+					gameImages.set(2, image);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -690,16 +615,29 @@ public class Game extends Canvas implements Runnable {
 
 	// Applies the gravity in the player.
 	public void applyGravity(Player player) {
-
 		float time = 0.18f;
 		speed += gravity * time;
 		player.setY(player.getY() + (speed * time));
-		// player.setY((player.getY() + (speed * time) +
-		// (gravity*(float)Math.pow(time, 2))/2.0f)/5);
-		// speed=gravity*time;
 		speed = (speed > 300.0f) ? 300.0f : speed;
-
 	}
+	
+	// Plays the sound of the game.
+	public void backgroundSound() {
+		audio.setFileName("C:/Users/Simiao/Desktop/09 Dryad Of The Woods.wav");
+		audio.playSong();
+	}
+
+	// Loads all the images of the game.
+	public ArrayList<BufferedImage> loadImages(String[] paths) throws IOException{
+		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+		
+		for(int i=0; i<paths.length; i++){
+			images.add(loader.loadImage("/jogo/" + paths[i] + ".png"));
+		}
+		
+		return images;
+	}
+
 
 	// Check if the player is colliding with a enemy.
 	public boolean collision(Player a, Enemy[] b) {
@@ -817,6 +755,34 @@ public class Game extends Canvas implements Runnable {
 			// Nothing to do
 		}
 	}
+	
+	// Start the thread that runs the game.
+		private synchronized void start() {
+			if (running) {
+				return;
+			} else {
+				// Nothing to do.
+			}
+			running = true;
+			thread = new Thread(this);
+			thread.start();
+		}
+
+		// Stop the thread that runs the game.
+		private synchronized void stop() {
+			if (!running) {
+				return;
+			} else {
+				// Nothing to do.
+			}
+			running = false;
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.exit(1);
+		}
 
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -838,7 +804,36 @@ public class Game extends Canvas implements Runnable {
 		game.start();
 		game.backgroundSound();
 	}
+	
+	public void resetLevel(){
+		for (int r = 0; r < enemy.length; r++)
+			enemy[r].setDead(false);
+		for (int k = 0; k < 3; k++)
+			rendersitem[k] = true;
+	}
 
+	public void setEnemiesLevel1(){
+		enemy[0] = new Enemy(0, 256, 60, 35, this, 1);
+		enemy[0].setLeftLimit(480);
+		enemy[1] = new Enemy(0, 116, 60, 35, this, 1);
+		enemy[1].setLeftLimit(470);
+		enemy[2] = new Enemy(269, 150, 60, 35, this, 1);
+		enemy[2].setLeftLimit(250);
+		enemy[2].setRightLimit(269);
+		enemy[3] = new Enemy(-100, 116, 60, 35, this, 2);
+		enemy[3].setLeftLimit(470);
+		enemy[4] = new Enemy(-100, 256, 60, 35, this, 2);
+		enemy[4].setLeftLimit(480);
+		enemy[5] = new Enemy(-100, 116, 60, 35, this, 2);
+		enemy[5].setLeftLimit(470);
+	}
+	
+	public void setItemsLevel1(){
+		item[0] = new Item(-530, 114, 30, 30, this);
+		item[1] = new Item(-530, 167, 30, 30, this);
+		item[2] = new Item(-530, 500, 30, 30, this);
+	}
+	
 	public BufferedImage getSpriteSheet() {
 		return gameImages.get(3);
 	}
@@ -852,7 +847,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void setEnemyImage(BufferedImage enemyImage) {
-		this.enemyImage = enemyImage;
+		gameImages.set(1, enemyImage);
 	}
 
 	public float getSpeed() {
@@ -868,7 +863,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void setImageitem(BufferedImage imageitem) {
-		this.imageitem = imageitem;
+		gameImages.set(4, imageitem);
 	}
 
 	public BufferedImage getShotImage() {
